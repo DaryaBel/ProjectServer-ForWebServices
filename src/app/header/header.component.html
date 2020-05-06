@@ -1,0 +1,14 @@
+<div class="bg-bread d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-bold txt-dark-bread" [routerLink]="['/']">Хлебник и хлебница</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <div *ngIf="!logOut">
+        <a class="p-2 text-dark">{{name}}</a>
+      </div>
+    </nav>
+    <div *ngIf="logOut">
+      <a class="br-gray-bread hov-gray-bread txt-gray-bread btn btn-outline-primary" [routerLink]="['/login']">Войти как администратор</a>
+    </div>
+    <div *ngIf="!logOut">
+     <a  (click)="onLogOut()" class="br-gray-bread hov-gray-bread txt-gray-bread btn btn-outline-primary" >Выйти</a>
+  </div>
+</div>

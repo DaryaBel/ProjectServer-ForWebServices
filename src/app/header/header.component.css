@@ -1,0 +1,27 @@
+.bg-bread{
+    background-color: rgb(245, 207, 142) !important;
+}
+
+.txt-dark-bread{
+    color: #af762f !important;
+}
+.br-gray-bread{
+    border-color: #bea28c;
+}
+.txt-gray-bread{
+    color: #bea28c;
+}
+.hov-gray-bread:focus{
+    box-shadow: 0 0 0 0.2rem rgba(190, 162, 140, .5) !important;
+}
+.hov-gray-bread:active, .hov-gray-bread:hover{
+    border-color: #bea28c !important;
+    background: #bea28c !important;
+    color: #fff !important;
+}
+h5{
+    cursor: pointer;
+}
+h5:focus{
+    outline-width:0 !important ;
+}
