@@ -1,3 +1,4 @@
+// Модель класса Продукт
 export class Product{
     public id: number;
     public name: string;

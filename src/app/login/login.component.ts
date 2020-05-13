@@ -9,8 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  flag=true;
-  flag2=true;
+  // Логическая переменная, определяющая наличие или отсутсвие сообщения о неправильном логине или пароле 
+  notExistLoginOrPassword=true;
+  // Логическая переменная, определяющая наличие или отсутсвие сообщения о незаполненных обязательных полях 
+  isEmpty=true;
   form :FormGroup;
   admin = {
     id: 1,
@@ -18,21 +20,24 @@ export class LoginComponent implements OnInit {
     password: "",
     role: ""
   }
+
   constructor(private api: MainService, private router: Router) { }
 
   ngOnInit() {
+    // Инициализация FormGroup, создание FormControl, и назанчение Validators
     this.form = new FormGroup({
       'login': new FormControl('', [Validators.required]),
       'password': new FormControl('', [Validators.required]) 
     });
   }
 
+  // Функция входа, отправляющая данные, полученные с формы на сервер, и реагирующая на ответ с сервера
  async onLogin() {
     if ((this.form.value.login=="")||(this.form.value.password=="")) {
-      this.flag2=false;
+      this.isEmpty=false;
     } else
     {
-      this.flag2=true;
+      this.isEmpty=true;
       let infoAboutUser;
     infoAboutUser = {
       login: this.form.value.login,
@@ -48,12 +53,12 @@ export class LoginComponent implements OnInit {
         this.admin.password = ExistOrNot[0].password;
         this.admin.role = ExistOrNot[0].role; 
         console.log(this.admin);       
-        this.flag = true;
+        this.notExistLoginOrPassword = true;
         localStorage.setItem('role', this.admin.role);
         this.router.navigate(['/']);
         
       } else {
-        this.flag = false;
+        this.notExistLoginOrPassword = false;
         console.log("Неверный логин или пароль");
       } 
     } catch (error) {
@@ -62,9 +67,11 @@ export class LoginComponent implements OnInit {
     }
     
    }
+
+   // Функция, убирает сообщения о неправильном логине или пароле и о незаполненных полях
    onFlag(){
-     this.flag=true;  
-     this.flag2=true;
+     this.notExistLoginOrPassword=true;  
+     this.isEmpty=true;
    }
    
   }

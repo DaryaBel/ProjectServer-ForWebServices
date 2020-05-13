@@ -9,31 +9,32 @@ export class MainService {
 
   constructor(private http: HttpClient) {}
 
+  //Создает полный адрес запроса
   private getUrl(url: string = ""): string {
     return "http://localhost:3001/api" + url;
   }
+  // Отправляет запрос GET на сервер
   public get(url) {
     return this.http
       .get(this.getUrl(url), { headers: this.headers })
       .toPromise();
   }
+  // Отправляет запрос POST на сервер
   public post(data, url) {
-    // console.log("URL: ", this.getUrl(url));  
-    // console.log("просто URL: ", url);    
     return this.http
       .post(this.getUrl(url), data, {
         headers: this.headers,
       })
       .toPromise();
   }
-  // "base api";
+// Отправляет запрос PUT на сервер
   public put(data, url) {
-    // console.log("base api");
     console.log(data);
     this.http
       .put(this.getUrl(url), data, { headers: this.headers })
       .toPromise();
   }
+// Отправляет запрос DELETE на сервер
   public delete(url) {
     console.log(this.getUrl(url));
     return this.http.delete(this.getUrl(url), { headers: this.headers}).toPromise();

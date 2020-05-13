@@ -11,7 +11,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'add', component: AddComponent},
   {path: 'products/:id', component: ViewComponent},
-  // {path: 'products', component: ViewComponent}
 
 ];
 

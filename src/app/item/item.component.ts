@@ -8,13 +8,16 @@ import { MainService } from '../shared/services/main.service';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
-  hide = true; 
+  // Логическая переменная определяющая наличие или отсуствие кнопки Удалить в карточке
+  hide = true;
+  hasOrNot; 
   @Input() item;
-  hasOrNot;
   @Output() del = new EventEmitter<number>();
+
   constructor(private router: Router, private mainService: MainService) { }
 
   ngOnInit() {
+    // Определение фразы о наличии товара 
     if (this.item.number ==0){
       this.hasOrNot="Отсутствует в продаже"
     } else {
@@ -22,15 +25,20 @@ export class ItemComponent implements OnInit {
     }
   }
 
+  // Хук жизненного цикла по изменению
+  // Проверяет наличие в LocalStorage элемента роли, чтобы понять авторизирован пользователь или нет
   ngDoCheck(){
     if (localStorage.getItem('role') !== null) {
      this.hide=false;
     } else this.hide=true; 
   }
 
+  // Функция, которая переводит на страницу карточки выбранного товара по клику
   onLink(id){
     this.router.navigate(['/products', id]);
   }
+
+  // Функция удаления товара из БД 
   async onDelete(id){
     try {
       let result = await this.mainService.delete(`/delete/${id}`);

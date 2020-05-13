@@ -12,7 +12,7 @@
             <p class="card-text">{{product.description}}</p>
             <p class="mb-0 card-text"><i>Вес:</i>  {{product.weight}}г</p>
             <p class="card-text"><i>Состав:</i>  {{product.ingredients}}</p>
-            <div *ngIf="flag; else anotherblock" class="d-flex flex-row">
+            <div *ngIf="editOrNot; else anotherblock" class="d-flex flex-row">
                 <div class="col-8 d-flex flex-column p-0">
                     <h4 class="my-line mb-2">{{product.price}}₽</h4>
                     <h5 class="font-weight-normal my-line">{{hasOrNot}}</h5>   

@@ -9,12 +9,17 @@ import { MainService } from '../shared/services/main.service';
 })
 export class AddComponent implements OnInit {
   form: FormGroup;
+  // Логическая переменная, определяющая наличие или отсутсвие прелоадера
   loading=false;
-  flag=true;
+  // Логическая переменная, определяющая наличие или отсутсвие сообщения о незаполненных обязательных полях 
+  isEmpty=true;
+  // Логическая переменная, определяющая наличие или отсутсвие сообщения об успешном добавлении товара
   succes=false;
+
   constructor(private mainService: MainService) { }
 
   ngOnInit() {
+    // Инициализация FormGroup, создание FormControl, и назанчение Validators
     this.form = new FormGroup({
       'name': new FormControl('', [Validators.required]),
       'artikul': new FormControl('', [Validators.required]),
@@ -22,17 +27,18 @@ export class AddComponent implements OnInit {
       'weight': new FormControl('', [Validators.required]),
       'description': new FormControl('', [Validators.required]),
       'number': new FormControl('', [Validators.required]),
-      'ingredients': new FormControl('', [Validators.required]),
+      'ingredients': new FormControl('', [Validators.required])
+      // 'photo': new FormControl('', [Validators.required]),
       })
   }
 
+  // Функция добавления информации о товаре, полученной с формы, в базу данных
   async onAdd(){   
     if ((this.form.value.name=="")||(this.form.value.artikul=="")||(this.form.value.price=="")||(this.form.value.weight=="")||(this.form.value.description=="")||(this.form.value.num=="")||(this.form.value.ingredients=="")) {
-      this.flag=false;
-    } else
-    {
+      this.isEmpty=false;
+    } else {
       this.loading=true;
-      this.flag=true;
+      this.isEmpty=true;
       let product = {
         name: this.form.value.name,
         filename: 'assets/1.jpg',
@@ -41,7 +47,8 @@ export class AddComponent implements OnInit {
         price: this.form.value.price,
         weight: this.form.value.weight,
         description: this.form.value.description,
-        ingredients: this.form.value.ingredients
+        ingredients: this.form.value.ingredients,
+        // photo: this.form.value.photo
       }
       console.log(product);
       try {;
@@ -52,14 +59,12 @@ export class AddComponent implements OnInit {
       this.form.reset();
       this.loading=false;
       this.succes=true;
-
-    }
-   
+    }   
   }
-
+// Функция, скрывающая сообщения о незаполненности полей и успешном добавлении товара (вызвается при фокусировке на одном из полей формы)
   onSucces(){
     this.succes=false;
-    this.flag=true;
+    this.isEmpty=true;
   }
 
 }

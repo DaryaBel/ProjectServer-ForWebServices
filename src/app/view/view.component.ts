@@ -11,12 +11,15 @@ import { Product } from '../shared/models/product.model';
 })
 export class ViewComponent implements OnInit {
   @Output() del = new EventEmitter<number>();
+  // Логическая переменная, определяющая наличие или отсутсвие прелоадера
   loading=false;
+  // Лoгическая переменная, определяющая наличие или отсутствие кнопок "Изменить" и "Удалить"
+  hide=true;
+  // Лoгическая переменная, определяющая режим чтения или редактирования включен
+  editOrNot=true;
   res;
   hasOrNot = 'в наличии';
   form: FormGroup;
-  hide=true;
-  flag=true;
   product: any = {
     id: '',
     name: '',
@@ -30,13 +33,16 @@ export class ViewComponent implements OnInit {
   item = {
     id: 0
   }
+// Получение параметра роута id
   constructor(private router: Router, private activateRouter: ActivatedRoute, private mainService: MainService) {
     this.activateRouter.params.subscribe(param => {
       this.item.id = +param.id;
    });
   }
+
   async ngOnInit() {   
     this.loading=true;
+    // Отправка на сервер запроса для получения карточки товара по id
       try {
         this.res = await this.mainService.post(JSON.stringify(this.item), "/onecard"); 
      } catch (error) {
@@ -51,6 +57,7 @@ export class ViewComponent implements OnInit {
      console.log(this.product);
      this.loading=false;
      if (this.product.id!=''){
+       // Инициализация FormGroup, создание FormControl, и назанчение Validators
       this.form = new FormGroup({
         'price': new FormControl(`${this.product.price}`, [Validators.required]),
         'number': new FormControl(`${this.product.number}`, [Validators.required])
@@ -58,11 +65,14 @@ export class ViewComponent implements OnInit {
      }
   }
 
+  // Хук жизненного цикла по изменению
+  // Проверяет наличие в LocalStorage элемента роли, чтобы понять авторизирован пользователь или нет
   ngDoCheck(){
     if (localStorage.getItem('role') !== null) {
      this.hide=false;
     } else this.hide=true; 
   }
+  // Отправляет запрос удаления карточки на сервер
   async onDelete(){
     try {
       let result = await this.mainService.delete(`/delete/${this.product.id}`);
@@ -72,9 +82,9 @@ export class ViewComponent implements OnInit {
     this.del.emit(this.product.id);
     this.router.navigate(['/']);
   }
-
+// Оправляет запрос изменения информации в карточки на сервер или включает редим редактирования
   async onChange(){
-    if (!this.flag) {
+    if (!this.editOrNot) {
           let newProduct = new Product(this.product.id, this.product.name, this.product.filename, this.product.artikul, this.form.value.number, this.form.value.price, this.product.weight, this.product.description, this.product.ingredients);
           try {
             let res = await this.mainService.put(JSON.stringify(newProduct), `/products/${this.product.id}`);
@@ -89,6 +99,6 @@ export class ViewComponent implements OnInit {
            this.hasOrNot=`${this.product.number} в наличии`
           }
         }
-       this.flag=!this.flag 
+       this.editOrNot=!this.editOrNot 
   }
 }

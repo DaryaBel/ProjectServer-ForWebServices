@@ -6,7 +6,7 @@
 <div *ngIf="!loading" class="container">
     <h2 class="mb-3">Создание нового товара</h2>
     <h5 *ngIf="succes" class="text-success">Товар был успешно создан!</h5>
-        <form [formGroup]="form">
+        <form [formGroup]="form" enctype="multipart/form-data">
             <div class="form-group">
               <label for="text"> Введите название товара</label>
               <input (focus)="onSucces()" formControlName="name" type="text" class="foc-bread br-gray-bread form-control" id="name">
@@ -38,10 +38,10 @@
             <!-- <div class="form-group">
                 <label for="photo">Добавьте фото товара</label>
                 <br>
-                <input (focus)="onSucces()" type="file"  formControlName="photo" id="photo" accept=".png,.jpg,.jpeg">
-            </div> -->
-             
-             <h5 *ngIf="!flag" class="text-danger">Одно или несколько полей пустые!</h5>
+                <input (focus)="onSucces()" type="file"  formControlName="photo" id="photo" name="filedata" accept=".png,.jpg,.jpeg">
+            </div>
+              -->
+             <h5 *ngIf="!isEmpty" class="text-danger">Одно или несколько полей пустые!</h5>
              <button class="btn btn-primary btn-gray-bread btn-block" (click)="onAdd()">Создать</button>
     <br><br><br><br><br><br><br>
 

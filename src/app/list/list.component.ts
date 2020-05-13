@@ -9,13 +9,17 @@ import { isEmptyExpression } from '@angular/compiler';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
+  // Логическая переменная, определяющая наличие или отсутсвие сообщения о незаполненных обязательных полях
   loading=false;
+  // Логическая переменная, определяющая наличие или отсутсвие ссылки на страницу добавления нового товара
   hide=true;
+  // Логическая переменная, определяющая наличие или отсутсвие сообщения о ненайденных товарах
   notfound=false;
   products: Product[] = [];
   constructor(private mainService: MainService) { }
 
   async ngOnInit() {
+    // Получение списка всех товаров,  имеющихся в БД
     this.loading=true;
     try {
       let result = await this.mainService.get("/products");
@@ -38,14 +42,15 @@ export class ListComponent implements OnInit {
     }
     this.loading=false;
   }
-
+  // Хук жизненного цикла по изменению
+  // Проверяет наличие в LocalStorage элемента роли, чтобы понять авторизирован пользователь или нет
   ngDoCheck(){
     if (localStorage.getItem('role') !== null) {
      this.hide=false;
     } else this.hide=true; 
   }
   
-
+  // Удаление из локального массива товаров определенного товара по id
   onDelete(id) {
     let index = this.products.findIndex((el)=>{
       return el.id==id
