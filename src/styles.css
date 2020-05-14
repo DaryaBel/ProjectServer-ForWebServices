@@ -3,6 +3,40 @@
     background-color: rgb(245, 207, 142) !important;
 }
 
+.afu-select-btn {
+    border-color: #bea28c !important;
+    background: #bea28c !important;
+    color: #fff !important;
+    margin-bottom: 0 !important;
+}
+.afu-reset-btn {
+    border-color: #dc3545 !important;
+    display: none !important;
+    background: #dc3545 !important;
+}
+.afu-constraints-info{
+    display: none;
+}
+.card-body{
+    min-height: 10rem !important;
+}
+div#default.container{
+    padding: 0 !important;
+}
+.afu-upload-btn{
+    border-color: #bea28c !important;
+    background: #bea28c !important;
+}
+div.afu-valid-file{
+    margin-left: 0;
+    margin-right: 0;
+}
+div.afu-valid-file p{
+    margin-bottom: 0; 
+}
+div.afu-valid-file p span{
+    color: black !important; 
+}
 .txt-dark-bread{
     color: #af762f !important;
 }

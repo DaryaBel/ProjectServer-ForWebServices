@@ -35,15 +35,24 @@
                 <label for="ingredients">Введите состав товара</label>
                   <textarea (focus)="onSucces()" class="foc-bread br-gray-bread form-control" formControlName="ingredients" name="ingredients" id="ingredients" cols="30" rows="10"></textarea>
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group" (click)="onSucces()">
                 <label for="photo">Добавьте фото товара</label>
                 <br>
-                <input (focus)="onSucces()" type="file"  formControlName="photo" id="photo" name="filedata" accept=".png,.jpg,.jpeg">
+                <angular-file-uploader
+                  [config]="afuConfig"
+                  (ApiResponse)="fileUpload($event)"
+                  >
+                </angular-file-uploader>
+
+                <!-- <input (focus)="onSucces()" type="file"  formControlName="photo" id="photo" name="filedata" accept=".png,.jpg,.jpeg"> -->
             </div>
-              -->
+             
              <h5 *ngIf="!isEmpty" class="text-danger">Одно или несколько полей пустые!</h5>
              <button class="btn btn-primary btn-gray-bread btn-block" (click)="onAdd()">Создать</button>
     <br><br><br><br><br><br><br>
 
   </form>
 </div>
+<style>
+  
+</style>

@@ -8,6 +8,22 @@ import { MainService } from '../shared/services/main.service';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit {
+  filename="";
+  afuConfig = {
+    multiple: false,
+    formatsAllowed: ".jpg,.png",
+    uploadAPI:  {
+      url:"http://localhost:3001/upload-photo",
+    },
+    replaceTexts: {
+      selectFileBtn: 'Выберите файл',
+      resetBtn: 'Удалить',
+      uploadBtn: 'Загрузить',
+      attachPinBtn: 'Прикрепите файл',
+      afterUploadMsg_success: 'Успешно загружено!',
+      afterUploadMsg_error: 'Загрузка прервана!'
+    }
+};
   form: FormGroup;
   // Логическая переменная, определяющая наличие или отсутсвие прелоадера
   loading=false;
@@ -34,23 +50,23 @@ export class AddComponent implements OnInit {
 
   // Функция добавления информации о товаре, полученной с формы, в базу данных
   async onAdd(){   
-    if ((this.form.value.name=="")||(this.form.value.artikul=="")||(this.form.value.price=="")||(this.form.value.weight=="")||(this.form.value.description=="")||(this.form.value.num=="")||(this.form.value.ingredients=="")) {
+    if ((this.form.value.name=="")||(this.form.value.artikul=="")||(this.filename=="")||(this.form.value.price=="")||(this.form.value.weight=="")||(this.form.value.description=="")||(this.form.value.num=="")||(this.form.value.ingredients=="")) {
       this.isEmpty=false;
     } else {
       this.loading=true;
       this.isEmpty=true;
       let product = {
         name: this.form.value.name,
-        filename: 'assets/1.jpg',
+        filename: this.filename,
         artikul: this.form.value.artikul,
         number: this.form.value.number,
         price: this.form.value.price,
         weight: this.form.value.weight,
         description: this.form.value.description,
         ingredients: this.form.value.ingredients,
-        // photo: this.form.value.photo
       }
       console.log(product);
+      this.filename = "";
       try {;
         let result = await this.mainService.post(JSON.stringify(product), "/add");
       } catch (err) {
@@ -65,6 +81,12 @@ export class AddComponent implements OnInit {
   onSucces(){
     this.succes=false;
     this.isEmpty=true;
+  }
+
+  // Функция, возвращение имени загруженного файла
+  fileUpload(event){
+    console.log(JSON.parse(event.response).filename);
+    this.filename = JSON.parse(event.response).filename;
   }
 
 }

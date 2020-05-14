@@ -16,7 +16,7 @@ export class ItemComponent implements OnInit {
 
   constructor(private router: Router, private mainService: MainService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     // Определение фразы о наличии товара 
     if (this.item.number ==0){
       this.hasOrNot="Отсутствует в продаже"

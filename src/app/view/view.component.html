@@ -36,7 +36,7 @@
             </ng-template>
         </div>
         <div class="col-lg-6 col-xl-6">
-            <img class="photo" class="w-100 mb-4 shadow" src="assets/1.jpg" alt="">
+            <img class="photo" class="w-100 mb-4 shadow" [src]="'http://localhost:3001/api/photo/' + product.filename" src="assets/1.jpg" alt="">
         </div>
     </div>
 </div>

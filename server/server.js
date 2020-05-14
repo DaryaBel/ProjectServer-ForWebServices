@@ -2,15 +2,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2");
 const dbConfig = require("./db.config.js");
-const multer  = require("multer");
+const fileUpload =  require("express-fileupload");
+const path = require("path");
+const uniqueFilename = require("unique-filename");
 const app = express();
+
+// Загрузка файлов
+app.use(fileUpload({
+  createParentPath: true
+}));
 
 // Парсинг json
 app.use(bodyParser.json());
-
-// Настройка получения файлов в папку uploads
-// app.use(express.static(__dirname));
-// app.use(multer({dest:"uploads"}).single("filedata"));
 
 // Парсинг запросов по типу: application/x-www-form-urlencoded
 app.use(
@@ -150,7 +153,7 @@ app.post("/api/onecard", (req, res) => {
         console.log(err);
       }
       console.log('Товар найден успешно');
-      console.log('РЕЗУЛЬТАТЫ');
+      console.log('Результаты:');
       console.log(results);
       res.json(results);
     });
@@ -175,6 +178,37 @@ app.put('/api/products/:id', function (req, res) {
   }
 })
 
+// Получение файла и загрузка его в папку uploads
+app.post('/upload-photo/', async (req, res) => {
+  console.log('Пришёл POST запрос для загрузки файла:');
+  console.log('Файл: ', req.files)
+  try {
+      if(!req.files) {
+          res.send({
+              status: false,
+              message: 'No file uploaded'
+          });
+      } else {
+          let photo = req.files.file0;
+          let name = uniqueFilename("")+"."+photo.name.split(".")[1]
+          photo.mv('./server/uploads/' + name);
+          res.send({
+              status: true,
+              message: 'File is uploaded',
+              filename: name
+          });
+      }
+  } catch (err) {
+    console.log("Ошибка ", err);
+    res.status(500).send(err);
+  }
+});
+
+//Получение полного пути файла
+app.get("/api/photo/:filename", (req, res) => {
+  console.log(path.join(__dirname, "uploads", req.params.filename));
+  res.sendFile(path.join(__dirname, "uploads", req.params.filename))
+})
 
 // Информирование о запуске сервера и его порте
 app.listen(3001, () => {
