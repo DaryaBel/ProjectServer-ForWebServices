@@ -93,12 +93,18 @@ export class ViewComponent implements OnInit {
           }
           this.product.price = this.form.value.price;
           this.product.number = this.form.value.number;
-          if (this.product.number ==0){
-            this.hasOrNot="Отсутствует в продаже"
-          } else {
-           this.hasOrNot=`${this.product.number} в наличии`
-          }
+          this.numberOfItem();
         }
        this.editOrNot=!this.editOrNot 
   }
+// Определяет фразу о наличии или отсутствии товара 
+  
+numberOfItem(){
+    if (this.product.number ==0){
+      this.hasOrNot="Отсутствует в продаже"
+    } else {
+     this.hasOrNot=`${this.product.number} в наличии`
+    }
+  }
+
 }

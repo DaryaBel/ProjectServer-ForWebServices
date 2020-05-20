@@ -1,5 +1,5 @@
 <div class="mb-3 ">
-    <div class="card mb-4 shadow-sm">
+    <div class="card mb-4 shadow-sm" *ngIf="demonstrate">
         <img (click)="onLink(item.id)" [src]="'http://localhost:3001/api/photo/' + item.filename" class="card-img-top" alt="">
         <div class="card-body">
           <p class="card-text h5" style="cursor: pointer;" (click)="onLink(item.id)">{{item.name}}</p>

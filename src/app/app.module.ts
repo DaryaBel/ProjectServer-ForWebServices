@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { ViewComponent } from './view/view.component';
 import { AddComponent } from './add/add.component';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 

@@ -10,6 +10,7 @@ import { MainService } from '../shared/services/main.service';
 export class ItemComponent implements OnInit {
   // Логическая переменная определяющая наличие или отсуствие кнопки Удалить в карточке
   hide = true;
+  demonstrate = true;
   hasOrNot; 
   @Input() item;
   @Output() del = new EventEmitter<number>();
@@ -17,12 +18,16 @@ export class ItemComponent implements OnInit {
   constructor(private router: Router, private mainService: MainService) { }
 
   async ngOnInit() {
-    // Определение фразы о наличии товара 
+    if (this.item==undefined) {
+      this.demonstrate  = false;
+    } {
+      // Определение фразы о наличии товара 
     if (this.item.number ==0){
       this.hasOrNot="Отсутствует в продаже"
     } else {
      this.hasOrNot=`${this.item.number} в наличии`
     }
+    } 
   }
 
   // Хук жизненного цикла по изменению

@@ -6,10 +6,10 @@
         <div *ngIf="!notExistLoginOrPassword" class="attention"> 
             <span>Неправильный логин или пароль!</span>
         </div>
-        <div *ngIf="!isEmpty" class="attention"> 
-            <span>Одно или несколько полей пустые!</span>
+        <div *ngIf="!isEmpty" class="attention" > 
+            <span class="field-required">Одно или несколько полей пустые!</span>
         </div>
-        <button (click)="onLogin()" class="btn-gray-bread btn btn-lg btn-primary btn-block">Войти</button>
+        <button (click)="onLogin()" id="btnLogin" class="btn-gray-bread btn btn-lg btn-primary btn-block">Войти</button>
     </form>
 </div>
         

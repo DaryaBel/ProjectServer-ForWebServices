@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ItemComponent } from './item.component';
 
 describe('ItemComponent', () => {
@@ -8,6 +9,9 @@ describe('ItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule, HttpClientTestingModule
+      ],
       declarations: [ ItemComponent ]
     })
     .compileComponents();
@@ -19,7 +23,7 @@ describe('ItemComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Рендеринг прошел успешно', () => {
     expect(component).toBeTruthy();
   });
 });
