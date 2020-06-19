@@ -8,3 +8,8 @@ button{
 input.my-line{
     width: 100px;
 }
+.icon {
+  width: 2.5rem;
+  height: 2.25rem;
+  cursor: pointer;
+}

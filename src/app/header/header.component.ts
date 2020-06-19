@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   // Логическая переменная, авторизирован пользователь или нет
   logOut = true;
-  name="";
+  name = "";
+  role = "";
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -17,17 +18,28 @@ export class HeaderComponent implements OnInit {
 
   // Хук жизненного цикла по изменению
   // Проверяет наличие в LocalStorage элемента роли, чтобы понять авторизирован пользователь или нет
-  ngDoCheck(){
-    if (localStorage.getItem('role') !== null) {
-      this.name = localStorage.getItem('role');
-      console.log('Роль: ', this.name);
-      this.logOut=false;; 
+  ngDoCheck() {
+    this.name = "";
+    this.role = "";
+    if (localStorage.getItem("role") !== null) {
+      if (localStorage.getItem("role") == "1") {
+        this.role = "Администратор"
+      } else {
+        if (localStorage.getItem("role") == "2") {
+          this.role = "Менеджер"
+        }
+      }
+    
+      this.name = localStorage.getItem("name");
+      console.log("Роль: ", this.role);
+      console.log("Имя: ", this.name);
+      this.logOut = false;
     }
   }
 
   // Функция, срабатывающая при выходе из аккаунта, очищает LocalStorage и переводит на каталог товаров
-  onLogOut(){
-    this.logOut=true;  
+  onLogOut() {
+    this.logOut = true;
     localStorage.clear();
     this.router.navigate(['/']);
   }

@@ -4,20 +4,22 @@ import { MainService } from '../shared/services/main.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-authorization',
+  templateUrl: './authorization.component.html',
+  styleUrls: ['./authorization.component.css']
 })
-export class LoginComponent implements OnInit {
+export class AuthorizationComponent implements OnInit {
+
   // Логическая переменная, определяющая наличие или отсутсвие сообщения о неправильном логине или пароле 
   notExistLoginOrPassword=true;
   // Логическая переменная, определяющая наличие или отсутсвие сообщения о незаполненных обязательных полях 
   isEmpty=true;
   form :FormGroup;
-  admin = {
-    id: 1,
+  user = {
+    id: "",
     login: "",
     password: "",
+    name: "",
     role: ""
   }
 
@@ -32,7 +34,8 @@ export class LoginComponent implements OnInit {
   }
 
   // Функция входа, отправляющая данные, полученные с формы на сервер, и реагирующая на ответ с сервера
- async onLogin() {
+  async onLogin() {
+   localStorage.clear();
     if ((this.form.value.login=="")||(this.form.value.password=="")) {
       this.isEmpty=false;
     } else
@@ -48,13 +51,16 @@ export class LoginComponent implements OnInit {
       let ExistOrNot = await this.api.post(JSON.stringify(infoAboutUser), "/login");
       this.form.reset();  
       if (ExistOrNot != "not exist") {
-        this.admin.id = +ExistOrNot[0].id;
-        this.admin.login = ExistOrNot[0].login;
-        this.admin.password = ExistOrNot[0].password;
-        this.admin.role = ExistOrNot[0].role; 
-        console.log(this.admin);       
+        this.user.id = ExistOrNot[0].id;
+        this.user.login = ExistOrNot[0].login;
+        this.user.password = ExistOrNot[0].password;
+        this.user.name = ExistOrNot[0].name; 
+        this.user.role = ExistOrNot[0].role; 
+        console.log(this.user);       
         this.notExistLoginOrPassword = true;
-        localStorage.setItem('role', this.admin.role);
+        localStorage.setItem("role", this.user.role);
+        localStorage.setItem("id", this.user.id);
+        localStorage.setItem('name', this.user.name);
         this.router.navigate(['/']);
   
       } else {
@@ -75,4 +81,5 @@ export class LoginComponent implements OnInit {
    }
    
   }
+
 

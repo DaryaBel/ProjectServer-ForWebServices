@@ -43,6 +43,9 @@ div.afu-valid-file p span{
 .br-gray-bread{
     border-color: #bea28c !important;
 }
+.bg-white {
+  background-color: #fff !important;
+}
 .txt-gray-bread{
     color: #bea28c  !important;
 }
@@ -79,3 +82,4 @@ div.afu-valid-file p span{
 .foc-bread:focus{
     box-shadow: 0 0 0 0.2rem rgba(190, 162, 140, .5) !important;
 }
+

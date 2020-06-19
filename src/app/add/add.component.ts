@@ -64,6 +64,7 @@ export class AddComponent implements OnInit {
         weight: this.form.value.weight,
         description: this.form.value.description,
         ingredients: this.form.value.ingredients,
+        creator: localStorage.getItem("id")
       }
       console.log(product);
       this.filename = "";

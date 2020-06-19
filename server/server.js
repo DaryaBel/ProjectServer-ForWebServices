@@ -66,12 +66,12 @@ connection.getConnection((err, connect) => {
 });
 
 
-//Обработка входа администратора
+//Обработка входа
 app.post("/api/login", (req, res) => {
   if (!req.body) return res.sendStatus(400);
   console.log('Пришёл POST запрос для входа:');
   console.log(req.body);
-  connection.query(`SELECT * FROM admins WHERE (login="${req.body.login}") AND (password="${req.body.password}")`,
+  connection.query(`SELECT * FROM users WHERE (login="${req.body.login}") AND (password="${req.body.password}")`,
     function (err, results) {
       if (err) {
         res.status(500).send('Ошибка сервера при получении пользователя по логину')
@@ -88,6 +88,43 @@ app.post("/api/login", (req, res) => {
       }
     });
 })
+
+
+// Регистрация пользователя
+app.post("/api/registration", (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  console.log('Пришёл POST запрос для пользователей:');
+  console.log(req.body);
+  connection.query(`SELECT * FROM users WHERE login='${req.body.login}'`, function (error, results) {
+    if (error) {
+      res.status(500).send('Ошибка сервера при получении пользователей с таким же логином')
+      console.log(error);
+    }
+    console.log('Результаты проверки существования логина:');
+    console.log(results[0]);
+    if (results[0] === undefined) {
+      connection.query('INSERT INTO `users` (`id`, `login`, `password`, `name`, `role`) VALUES (NULL, ?, ?, ?, ?)',
+        [req.body.login, req.body.password, req.body.name, req.body.role],
+        function () {
+          console.log('Запрос на проверку существоавания созданной записи в БД');
+          connection.query(`SELECT * FROM users WHERE login="${req.body.login}"`,
+            function (err, result) {
+              if (err) {
+                res.status(500).send('Ошибка сервера при получении пользователя по логину')
+                console.log(err);
+              } else {
+                console.log(result);
+                res.json(result);
+              }
+            });
+        })
+    } else {
+      res.json("exist");
+    }
+  });
+
+})
+
 
 //Обработка получения списка товаров
 app.get('/api/products', function (req, res) {
@@ -128,8 +165,8 @@ app.post("/api/add", (req, res) => {
   if (!req.body) return res.sendStatus(400);
   console.log('Пришёл POST запрос для создания карточки:');
   console.log(req.body);
-  connection.query(`INSERT INTO products (filename, name, artikul, number, price, weight, description, ingredients) VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
-  [req.body.filename, req.body.name, req.body.artikul, req.body.number, req.body.price, req.body.weight, req.body.description, req.body.ingredients],
+  connection.query(`INSERT INTO products (filename, name, artikul, number, price, weight, description, ingredients, creator) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+  [req.body.filename, req.body.name, req.body.artikul, req.body.number, req.body.price, req.body.weight, req.body.description, req.body.ingredients, req.body.creator],
     function (err) {
       if (err) {
         res.status(500).send('Ошибка сервера при cоздании карточки')
@@ -177,6 +214,112 @@ app.put('/api/products/:id', function (req, res) {
     console.log(error);
   }
 })
+
+// Получение списка сотрудников
+app.get('/api/users', function (req, res) {
+  try {
+    connection.query('SELECT * FROM `users` WHERE role<>3', function (error, results) {
+      if (error) {
+        res.status(500).send('Ошибка сервера при получении сотрудников')
+        console.log(error);
+      }
+      console.log('Результаты получения сотрудников');
+      console.log(results);
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+// Обработка удаления сотрудников
+app.delete("/api/users/:id", (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  console.log('Пришёл DELETE запрос для удаления сотрудников:');
+  connection.query(`DELETE FROM users WHERE id=${req.params.id}`,
+    function (err) {
+      if (err) {
+        res.status(500).send('Ошибка сервера при удалении сотрудника по id')
+        console.log(err);
+      }
+      console.log('Удаление прошло успешно');
+      res.json("delete");
+    });
+})
+
+// Обработка добавления сотрудника
+app.post("/api/users", (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  console.log('Пришёл POST запрос для добавления сотрудника:');
+  console.log(req.body);
+  connection.query(`INSERT INTO users (login, password, name, role) VALUES (?, ?, ?, ?);`,
+    [req.body.login, req.body.password, req.body.name, req.body.role],
+    function (err) {
+      if (err) {
+        res.status(500).send('Ошибка сервера при добавлении сотрудника')
+        console.log(err);
+      }
+      console.log('Добавление сотрудника прошло успешно');
+      res.json("create");
+    });
+})
+
+
+//Обработка получения списка избранных товаров
+app.get('/api/favour/:id', function (req, res) {
+  console.log(req.params.id);
+  try {
+    connection.query('SELECT * FROM `favour` INNER JOIN `products` ON products.id = favour.idproduct WHERE iduser=?',
+      [req.params.id],
+      function (error, results) {
+        if (error) {
+          res.status(500).send('Ошибка сервера при получении избранных товаров')
+          console.log(error);
+        }
+        console.log('Результаты получения избранных товаров');
+        console.log(results);
+        res.json(results);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+// Обработка удаления товара из избранного
+app.delete("/api/favour/:iduser/:idproduct", (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  console.log('Пришёл DELETE запрос для удаления избранного:');
+  console.log(req.body);
+  connection.query('DELETE FROM `favour` WHERE (idproduct=?) AND (iduser=?)',
+    [req.params.idproduct, req.params.iduser],
+    function (err) {
+      if (err) {
+        res.status(500).send('Ошибка сервера при удалении избранного')
+        console.log(err);
+      }
+      console.log('Удаление прошло успешно');
+      res.json("delete");
+    });
+})
+// Обработка добавления товара в избранное
+app.post("/api/favour", (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  console.log('Пришёл POST запрос для добавления избранного:');
+  console.log(req.body);
+  connection.query('INSERT INTO `favour` (iduser, idproduct) VALUES (?, ?)',
+    [req.body.iduser, req.body.idproduct],
+    function (err) {
+      if (err) {
+        res.status(500).send('Ошибка сервера при добавлении избранного')
+        console.log(err);
+      }
+      console.log('Добавление прошло успешно');
+      res.json("create");
+    });
+})
+
 
 // Получение файла и загрузка его в папку uploads
 app.post('/upload-photo/', async (req, res) => {
