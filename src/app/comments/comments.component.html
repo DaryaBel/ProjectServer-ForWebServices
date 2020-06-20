@@ -1,1 +1,31 @@
-<p>comments works!</p>
+
+    <h3 >Комментарии</h3>
+    
+  <form [formGroup]="form" *ngIf="!hideOnly3; else notAuth">
+    <textarea (focus)="success=false" class="foc-bread br-gray-bread form-control mb-3" formControlName="comment"
+      name="comment" id="comment"
+        cols="30" rows="10" placeholder="Ваш комментарий">
+    </textarea>
+    <span class="text-success" *ngIf="success"> Комментарий успешно добавлен!</span>
+    <span class="text-danger" *ngIf="isEmpty"> Вы не написали комментарий!</span>
+    <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-auto col-xl-auto mb-3">
+        <a class="btn-gray-bread btn btn-success btn-block" (click)="onAdd()" >Добавить комментарий</a>
+    </div>
+    </div>
+</form>
+  <ng-template #notAuth>
+      <h5 class="font-weight-normal">{{warning}}</h5>
+  </ng-template>
+  <div *ngIf="!notfound; else blockNotFound" >
+    <div *ngFor="let comment of comments" class="alert alert-warning">
+        <h5 class="h5 g-color-gray-dark-v1 mb-0">{{comment.name}}</h5>
+        <span class="text-black-50">{{comment.date}}</span>
+        <p>{{comment.text}}</p>
+        <button *ngIf="comment.iduser==iduser" type="button" class=" my-btn btn-sm btn btn-danger" (click)="onDelete(comment.id)">Удалить</button>
+  </div> 
+  </div>
+  <ng-template #blockNotFound>
+    <h5 class="font-weight-normal">Для данного товара еще не писали комментариев, будьте первыми!</h5>
+  </ng-template>
+<br> <br> <br>

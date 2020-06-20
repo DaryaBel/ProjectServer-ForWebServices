@@ -13,3 +13,7 @@ input.my-line{
   height: 2.25rem;
   cursor: pointer;
 }
+ .photo{
+     object-fit: cover;
+     max-height: 400px;
+ }

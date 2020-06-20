@@ -68,7 +68,7 @@ connection.getConnection((err, connect) => {
 
 //Обработка входа
 app.post("/api/login", (req, res) => {
-  if (!req.body) return res.sendStatus(400);
+  if (!req.body) return res.sendStatus(400).send("Данные не пришли");
   console.log('Пришёл POST запрос для входа:');
   console.log(req.body);
   connection.query(`SELECT * FROM users WHERE (login="${req.body.login}") AND (password="${req.body.password}")`,
@@ -318,6 +318,81 @@ app.post("/api/favour", (req, res) => {
       console.log('Добавление прошло успешно');
       res.json("create");
     });
+})
+
+
+//Обработка получения списка комментариев
+app.get('/api/comments/:id', function (req, res) {
+  try {
+    connection.query(
+      "SELECT * FROM `comment` INNER JOIN `users` ON users.id = comment.iduser WHERE idproduct=? ORDER BY `comment`.`datetime` DESC",
+      [req.params.id],
+      function (error, results) {
+        if (error) {
+          res
+            .status(500)
+            .send("Ошибка сервера при получении списка комментариев");
+          console.log(error);
+        }
+        console.log("Результаты получения комментариев");
+        console.log(results);
+        res.json(results);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+// Обработка удаления комментариев
+app.delete("/api/comments/:id", (req, res) => {
+  console.log("Пришёл DELETE запрос для удаления комментариев:");
+  connection.query(
+    "DELETE FROM `comment` WHERE idcomment=?",
+    [req.params.id],
+    function (err) {
+      if (err) {
+        res.status(500).send("Ошибка сервера при удалении комментариев");
+        console.log(err);
+      }
+      console.log("Удаление прошло успешно");
+      res.json("delete");
+    }
+  );
+});
+
+// Обработка добавления комментариев
+app.post("/api/comments", (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  console.log("Пришёл POST запрос для добавления комментариев:");
+  console.log(req.body);
+  connection.query(
+    "INSERT INTO `comment` (iduser, idproduct, text) VALUES (?, ?, ?)",
+    [req.body.iduser, req.body.idproduct, req.body.text],
+    function (err) {
+      if (err) {
+        res.status(500).send("Ошибка сервера при добавлении комментариев");
+        console.log(err);
+      }
+      console.log("Добавление комментариев успешно");
+      connection.query(
+        "SELECT * FROM `comment` INNER JOIN `users` ON users.id = comment.iduser WHERE idproduct=? ORDER BY `comment`.`datetime` DESC LIMIT 1",
+        [req.body.idproduct],
+        function (error, results) {
+          if (error) {
+            res
+              .status(500)
+              .send("Ошибка сервера при получении добавленного комментария");
+            console.log(error);
+          }
+          console.log("Результаты получения комментариев");
+          console.log(results);
+          res.json(results);
+        }
+      );
+    }
+  );
 })
 
 

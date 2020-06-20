@@ -43,6 +43,11 @@ div.afu-valid-file p span{
 .br-gray-bread{
     border-color: #bea28c !important;
 }
+
+.bg-dark-bread {
+  background-color: #af762f !important;
+}
+
 .bg-white {
   background-color: #fff !important;
 }

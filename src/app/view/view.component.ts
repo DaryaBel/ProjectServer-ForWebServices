@@ -174,6 +174,7 @@ export class ViewComponent implements OnInit {
         `/favour/${localStorage.getItem("id")}/${this.product.id}`
       );
       this.heart = false;
+      console.log(this.heart);
     } catch (error) {
       console.log(error);
     }
@@ -189,6 +190,8 @@ export class ViewComponent implements OnInit {
       };
       let result = await this.mainService.post(obj, `/favour`);
       this.heart = true;
+      console.log(this.heart);
+      
     } catch (error) {
       console.log(error);
     }

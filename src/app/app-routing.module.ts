@@ -8,6 +8,7 @@ import { AuthorizationComponent } from './authorization/authorization.component'
 import { FavouriteComponent } from './favourite/favourite.component';
 import { AddRoleComponent } from './add-role/add-role.component';
 import { ListUserComponent } from './list-user/list-user.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "products/:id", component: ViewComponent },
   { path: "add-role", component: AddRoleComponent },
   { path: "list-user", component: ListUserComponent },
+  { path: "admin", component: AdminComponent },
 ];
 
 @NgModule({

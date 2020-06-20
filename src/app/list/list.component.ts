@@ -15,6 +15,7 @@ export class ListComponent implements OnInit {
   hide1 = true;
   hide2 = true;
   hide3 = true;
+  searchString = "";
   // Логическая переменная, определяющая наличие или отсутсвие сообщения о ненайденных товарах
   notfound = false;
   products: Product[] = [];
@@ -25,10 +26,7 @@ export class ListComponent implements OnInit {
     this.loading = true;
     try {
       let result = await this.mainService.get("/products");
-      if (Object.keys(result).length == 0) {
-        console.log("пуст");
-        result = undefined;
-      }
+
       if (typeof result !== "undefined") {
         this.notfound = false;
         console.log(result);

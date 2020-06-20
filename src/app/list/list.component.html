@@ -8,9 +8,13 @@
       <div class="col-sm-12 col-md-12 col-lg-auto col-xl-auto">
         <a class="btn-gray-bread btn btn-success btn-block" [routerLink]="['/add']">Добавить новый товар</a>
       </div>
-        </div>
+    </div>
+    <div class="row mb-3">
+      <h5>Хотите найти товар по названию или артикулу?</h5>
+      <input type="text" class="form-control" [(ngModel)]="searchString">
+    </div>
     <div *ngIf="!notfound; else blockNotFound" class="row mt-3 justify-content-md-start justify-content-lg-between justify-content-center  justify-content-xl-start">
-      <app-item *ngFor="let product of products" [item]="product"(del)="onDelete(product.id)" class="col-lg-3 col-xl-3 col-md-6 col-sm-12 col-xs-12"></app-item>
+      <app-item *ngFor="let product of products | mypipe:searchString" [item]="product"(del)="onDelete(product.id)" class="col-lg-3 col-xl-3 col-md-6 col-sm-12 col-xs-12"></app-item>
       </div>
     <ng-template #blockNotFound>
       <h3 class="font-weight-normal">К сожалению, товаров не найдено.</h3>

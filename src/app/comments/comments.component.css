@@ -1,0 +1,9 @@
+textarea.form-control {
+  height: 50px !important;
+  resize: none !important;
+}
+.my-btn{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}

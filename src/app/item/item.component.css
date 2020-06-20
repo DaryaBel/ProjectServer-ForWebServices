@@ -6,3 +6,9 @@
   cursor: pointer;
   position: absolute;
 }
+.photo{
+       object-fit: cover;
+        height: 253px;
+        width: 253px;
+        cursor: pointer;
+}

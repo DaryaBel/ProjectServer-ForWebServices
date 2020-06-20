@@ -17,7 +17,9 @@ import { FavouriteComponent } from './favourite/favourite.component';
 import { AddRoleComponent } from './add-role/add-role.component';
 import { ListUserComponent } from './list-user/list-user.component';
 import { CommentsComponent } from './comments/comments.component';
-
+import { MypipePipe } from './shared/pipes/mypipe.pipe';
+import { FormsModule } from "@angular/forms";
+import { AdminComponent } from './admin/admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,13 +41,18 @@ import { CommentsComponent } from './comments/comments.component';
 
     ListUserComponent,
 
-    CommentsComponent
+    CommentsComponent,
+
+    MypipePipe,
+
+    AdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     AngularFileUploaderModule
   ],

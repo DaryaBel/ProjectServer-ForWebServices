@@ -12,8 +12,10 @@
                     <h3 class="mb-0">{{product.name}}</h3>
                     <h5 class="mb-2 text-secondary font-weight-normal">{{product.artikul}}</h5>
                 </div>
-                <img class="icon" *ngIf="((heart) && (!hide3))" (click)="onHeart()" src="/assets/heart-close.png" alt="">
-                <img class="icon" *ngIf="((!heart) && (!hide3))" (click)="onHeart()" src="/assets/heart-open.png" alt="">
+                <img class="icon" *ngIf="((heart) && (!hide3))" (click)="deleteFavourite()" src="/assets/heart-close.png"
+                  alt="">
+                <img class="icon" *ngIf="((!heart) && (!hide3))" (click)="addFavourite()" src="/assets/heart-open.png"
+                  alt="">
             </div>
             <p class="card-text">{{product.description}}</p>
             <p class="mb-0 card-text"><i>Вес:</i>  {{product.weight}}г</p>
@@ -42,7 +44,10 @@
             </ng-template>
         </div>
         <div class="col-lg-6 col-xl-6">
-            <img class="photo" class="w-100 mb-4 shadow" [src]="'http://localhost:3001/api/photo/' + product.filename" src="assets/1.jpg" alt="">
+            <img class="photo w-100 mb-4 shadow" [src]="'http://localhost:3001/api/photo/' + product.filename"
+              src="assets/1.jpg" alt="">
         </div>
     </div>
+    <app-comments>
+    </app-comments>
 </div>
