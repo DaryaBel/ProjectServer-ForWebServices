@@ -20,6 +20,11 @@ import { CommentsComponent } from './comments/comments.component';
 import { MypipePipe } from './shared/pipes/mypipe.pipe';
 import { FormsModule } from "@angular/forms";
 import { AdminComponent } from './admin/admin.component';
+import { AdminCommentComponent } from './admin-comment/admin-comment.component';
+import { ChartsModule } from "ng2-charts";
+import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { OldDeleteComponent } from './old-delete/old-delete.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +50,13 @@ import { AdminComponent } from './admin/admin.component';
 
     MypipePipe,
 
-    AdminComponent
+    AdminComponent,
+
+    AdminCommentComponent,
+
+    PieChartComponent,
+
+    OldDeleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,9 +65,10 @@ import { AdminComponent } from './admin/admin.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
+    ChartsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -22,7 +22,7 @@
         <h5 class="h5 g-color-gray-dark-v1 mb-0">{{comment.name}}</h5>
         <span class="text-black-50">{{comment.date}}</span>
         <p>{{comment.text}}</p>
-        <button *ngIf="comment.iduser==iduser" type="button" class=" my-btn btn-sm btn btn-danger" (click)="onDelete(comment.id)">Удалить</button>
+        <button *ngIf="(comment.iduser==iduser) || (!hide1)" type="button" class=" my-btn btn-sm btn btn-danger" (click)="onDelete(comment.id)">Удалить</button>
   </div> 
   </div>
   <ng-template #blockNotFound>

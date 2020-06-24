@@ -136,6 +136,7 @@ export class CommentsComponent implements OnInit {
             time
           )
         );
+        this.notfound = false;
       } catch (err) {
         console.log(err);
       }
@@ -153,5 +154,8 @@ export class CommentsComponent implements OnInit {
       return el.id == id;
     });
     this.comments.splice(index, 1);
+    if (this.comments.length == 0) { 
+      this.notfound = true;
+    }
   }
 }

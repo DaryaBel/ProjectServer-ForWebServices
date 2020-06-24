@@ -21,9 +21,7 @@ export class ItemComponent implements OnInit {
   constructor(private router: Router, private mainService: MainService) {}
 
   async ngOnInit() {
-    if (this.item == undefined) {
-      this.demonstrate = false;
-    }
+    this.demonstrate = false;
     if (localStorage.getItem("id") !== null) {
         let response;
         try {
@@ -48,6 +46,7 @@ export class ItemComponent implements OnInit {
       } else {
         this.hasOrNot = `${this.item.number} в наличии`;
       }
+    this.demonstrate = true;
   }
 
   // Хук жизненного цикла по изменению
@@ -79,13 +78,15 @@ export class ItemComponent implements OnInit {
   }
 
   // Функция удаления товара из БД
-  async onDelete(id) {
+  async onDelete(item) {
     try {
-      let result = await this.mainService.delete(`/delete/${id}`);
-    } catch (error) {
+      let result = await this.mainService.delete(`/delete/${item.id}`);
+      let result2 = await this.mainService.post(JSON.stringify(item), "/archive");
+      } 
+     catch (error) {
       console.log(error);
     }
-    this.del.emit(id);
+    this.del.emit(item.id);
   }
 
 

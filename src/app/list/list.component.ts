@@ -27,7 +27,7 @@ export class ListComponent implements OnInit {
     try {
       let result = await this.mainService.get("/products");
 
-      if (typeof result !== "undefined") {
+     if (typeof result[0] !== "undefined") {
         this.notfound = false;
         console.log(result);
         for (const one in result) {

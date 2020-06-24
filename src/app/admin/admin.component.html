@@ -1,22 +1,11 @@
-<nav class="my-nav p-3 px-md-4 navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Админ-панель</a>
-  <button (click)="openMenu()" class="navbar-toggler" type="button" data-toggle="collapse"
-    data-target="#navbarNavAltMarkup"
-    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-   
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup" >
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#">Сотрудники</a>
-      <a class="nav-item nav-link" href="#">Комментарии</a>
-      <a class="nav-item nav-link" href="#">Дашборд</a>
-    </div>
+<div class="row p-0 m-0">
+  <div class="col-12 col-lg-6 col-xl-4 p-0 m-0">
+    <canvas id="pie"></canvas>
   </div>
-</nav>
-<div class="flex-column align-items-center p-3 bg-light" *ngIf="addMenu">
-    <a class="nav-item nav-link text-center txt-dark-bread" href="#">Сотрудники</a>
-    <a class="nav-item nav-link text-center txt-dark-bread" href="#">Комментарии</a>
-    <a class="nav-item nav-link text-center txt-dark-bread" href="#">Дашборд</a>
-    <br>
+  <div class="col-12 col-lg-6 col-xl-4 p-0 m-0">
+    <canvas id="pie"></canvas>
+  </div>
+  <div class="col-12 col-lg-6 col-xl-4 p-0 m-0">
+    <canvas id="pie"></canvas>
+  </div>
 </div>

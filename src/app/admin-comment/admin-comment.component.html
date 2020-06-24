@@ -1,0 +1,35 @@
+<div *ngIf="loading" style="height: calc(100vh - 73px - 2rem);"
+  class="container d-flex justify-content-center align-content-center">
+  <div class="spinner-border txt-gray-bread m-auto" role="status">
+    <span class="sr-only ">Loading...</span>
+  </div>
+</div>
+<div *ngIf="(!loading) && (!notfound); else notFound" class="container">
+  <h2 class="mb-3">Cписок всех комментариев</h2>
+  <div class="wrap-for-table">
+    <table class="table">
+      <tr>
+        <th>Дата</th>
+        <th>Автор</th>
+        <th>Содержание комментария</th>
+        <th>Наименование товара</th>
+        <th>Удалить</th>
+      </tr>
+      <tr *ngFor="let comment of comments">
+        <td>{{comment.date}}</td>
+        <td>{{comment.name}}</td>
+        <td>{{comment.text}}</td>
+        <td style="cursor: pointer;"  (click)="onLink(comment.idproduct)">{{comment.nameproduct}}</td>
+        <td>
+          <button type="button" class=" btn-sm btn btn-danger" (click)="onDelete(comment.idcomment)">Удалить</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+<ng-template #notFound class="container">
+    <div class="container">
+         <h3 class="font-weight-normal">Комментариев не найдено :(</h3>
+    </div>
+</ng-template>

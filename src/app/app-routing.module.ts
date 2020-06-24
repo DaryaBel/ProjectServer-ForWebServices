@@ -9,6 +9,8 @@ import { FavouriteComponent } from './favourite/favourite.component';
 import { AddRoleComponent } from './add-role/add-role.component';
 import { ListUserComponent } from './list-user/list-user.component';
 import { AdminComponent } from './admin/admin.component';
+import { AdminCommentComponent } from './admin-comment/admin-comment.component';
+import { OldDeleteComponent } from './old-delete/old-delete.component';
 
 
 const routes: Routes = [
@@ -20,7 +22,9 @@ const routes: Routes = [
   { path: "products/:id", component: ViewComponent },
   { path: "add-role", component: AddRoleComponent },
   { path: "list-user", component: ListUserComponent },
-  { path: "admin", component: AdminComponent },
+  { path: "dashboard", component: AdminComponent },
+  { path: "admin-comment", component: AdminCommentComponent },
+  { path: "archive", component: OldDeleteComponent },
 ];
 
 @NgModule({

@@ -191,7 +191,6 @@ export class ViewComponent implements OnInit {
       let result = await this.mainService.post(obj, `/favour`);
       this.heart = true;
       console.log(this.heart);
-      
     } catch (error) {
       console.log(error);
     }

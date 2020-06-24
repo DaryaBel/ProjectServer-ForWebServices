@@ -143,6 +143,23 @@ app.get('/api/products', function (req, res) {
   }
 });
 
+//Обработка получения архива товаров
+app.get("/api/archive", function (req, res) {
+  try {
+    connection.query("SELECT * FROM `archive`", function (error, results) {
+      if (error) {
+        res.status(500).send("Ошибка сервера при архива товаров");
+        console.log(error);
+      }
+      console.log("Результаты получения архива товаров");
+      console.log(results);
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 // Обработка удаления товара
 app.delete("/api/delete/:id", (req, res) => {
@@ -158,15 +175,34 @@ app.delete("/api/delete/:id", (req, res) => {
       console.log('Удаление прошло успешно');
       res.json("delete");
     });
+  
 })
+
+// Обработка удаления архивного товара
+app.delete("/api/archive/:id", (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  console.log("Пришёл DELETE запрос для удаления карточки из архива:");
+  console.log(req.body);
+  connection.query(`DELETE FROM archive WHERE id=${req.params.id}`, function (
+    err
+  ) {
+    if (err) {
+      res.status(500).send("Ошибка сервера при удалении карточки archive");
+      console.log(err);
+    }
+    console.log("Удаление прошло успешно");
+    res.json("delete");
+  });
+});
+
 
 // Обработка создания карточки
 app.post("/api/add", (req, res) => {
   if (!req.body) return res.sendStatus(400);
   console.log('Пришёл POST запрос для создания карточки:');
   console.log(req.body);
-  connection.query(`INSERT INTO products (filename, name, artikul, number, price, weight, description, ingredients, creator) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
-  [req.body.filename, req.body.name, req.body.artikul, req.body.number, req.body.price, req.body.weight, req.body.description, req.body.ingredients, req.body.creator],
+  connection.query(`INSERT INTO products (filename, name, artikul, number, price, weight, description, ingredients) VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
+  [req.body.filename, req.body.name, req.body.artikul, req.body.number, req.body.price, req.body.weight, req.body.description, req.body.ingredients],
     function (err) {
       if (err) {
         res.status(500).send('Ошибка сервера при cоздании карточки')
@@ -175,6 +211,34 @@ app.post("/api/add", (req, res) => {
       console.log('Создание прошло успешно');
       res.json("create");
     });
+})
+
+// Обработка создания в архиве карточки
+app.post("/api/archive", (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  console.log("Пришёл POST запрос для создания карточки в архиве:");
+  console.log(req.body);
+  connection.query(
+    `INSERT INTO archive (filename, name, artikul, number, price, weight, description, ingredients) VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
+    [
+      req.body.filename,
+      req.body.name,
+      req.body.artikul,
+      req.body.number,
+      req.body.price,
+      req.body.weight,
+      req.body.description,
+      req.body.ingredients
+    ],
+    function (err) {
+      if (err) {
+        res.status(500).send("Ошибка сервера при cоздании карточки в архиве");
+        console.log(err);
+      }
+      console.log("Создание в архиве прошло успешно");
+      res.json("create");
+    }
+  );
 })
 
 // Обработка получения информации об одном товаре
@@ -224,6 +288,26 @@ app.get('/api/users', function (req, res) {
         console.log(error);
       }
       console.log('Результаты получения сотрудников');
+      console.log(results);
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+// Получение списка пользователя по id
+app.get('/api/user/:id', function (req, res) {
+  try {
+    connection.query('SELECT * FROM `users` WHERE id=?',
+      [req.params.id],
+      function (error, results) {
+      if (error) {
+        res.status(500).send('Ошибка сервера при получении пользователя')
+        console.log(error);
+      }
+      console.log('Результаты получения пользователя');
       console.log(results);
       res.json(results);
     });
@@ -320,6 +404,28 @@ app.post("/api/favour", (req, res) => {
     });
 })
 
+//Обработка получения списка всех комментариев
+app.get('/api/all-comments', function (req, res) {
+  try {
+    connection.query(
+      "SELECT * FROM `comment` INNER JOIN `products` ON products.id = comment.idproduct ORDER BY `comment`.`datetime` DESC",
+      function (error, results) {
+        if (error) {
+          res
+            .status(500)
+            .send("Ошибка сервера при получении полного списка комментариев");
+          console.log(error);
+        }
+        console.log("Результаты получения всех комментариев");
+        console.log(results);
+        res.json(results);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 //Обработка получения списка комментариев
 app.get('/api/comments/:id', function (req, res) {
@@ -347,7 +453,7 @@ app.get('/api/comments/:id', function (req, res) {
 
 // Обработка удаления комментариев
 app.delete("/api/comments/:id", (req, res) => {
-  console.log("Пришёл DELETE запрос для удаления комментариев:");
+  console.log("Пришёл DELETE запрос для удаления комментариев c id = :", req.params.id);
   connection.query(
     "DELETE FROM `comment` WHERE idcomment=?",
     [req.params.id],
@@ -395,6 +501,49 @@ app.post("/api/comments", (req, res) => {
   );
 })
 
+// Обработка статистики избранного
+app.get("/api/statistic/favor", function (req, res) {
+  try {
+    connection.query(
+      "SELECT count(*) AS favourcount, products.name FROM `favour` INNER JOIN `products` ON products.id = favour.idproduct GROUP BY favour.idproduct",
+      function (error, results) {
+        if (error) {
+          res
+            .status(500)
+            .send("Ошибка сервера при получении статистики избранного");
+          console.log(error);
+        }
+        console.log("Результаты получения статистики избранного");
+        console.log(results);
+        res.json(results);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Обработка статистики избранного
+app.get("/api/statistic/favor", function (req, res) {
+  try {
+    connection.query(
+      "SELECT count(*) AS favourcount, products.name FROM `favour` INNER JOIN `products` ON products.id = favour.idproduct GROUP BY favour.idproduct",
+      function (error, results) {
+        if (error) {
+          res
+            .status(500)
+            .send("Ошибка сервера при получении статистики избранного");
+          console.log(error);
+        }
+        console.log("Результаты получения статистики избранного");
+        console.log(results);
+        res.json(results);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 // Получение файла и загрузка его в папку uploads
 app.post('/upload-photo/', async (req, res) => {

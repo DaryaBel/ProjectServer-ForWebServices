@@ -25,3 +25,13 @@ h5{
 h5:focus{
     outline-width:0 !important ;
 }
+.my-nav {
+  margin-top: -1rem !important;
+}
+
+.bg-light {
+  background-color: #fffde7 !important;
+}
+.my-addmenu{
+    margin-top: -1.5rem !important
+}

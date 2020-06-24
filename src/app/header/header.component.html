@@ -8,10 +8,6 @@
         <a class="p-2 text-dark">{{name}}</a>
       </div>
     </nav>
-    <div *ngIf="(!logOut) && (role=='Администратор')">
-      <a class="btn-gray-bread btn btn-outline-primary mr-2 mb-2 mb-md-0 mb-xl-0 mb-lg-0" [routerLink]="['/list-user']">Список
-        сотрудников</a>
-    </div>
     <div *ngIf="!logOut">
       <a class="btn-gray-bread btn btn-outline-primary mr-2 mb-2 mb-md-0 mb-xl-0 mb-lg-0"
         [routerLink]="['/favour']">Избранное</a>
@@ -24,4 +20,34 @@
      <a (click)="onLogOut()"
        class="btn-gray-bread btn btn-outline-primary">Выйти</a>
   </div>
+</div>
+<nav *ngIf="(!logOut) && (role=='Администратор')"
+  class="my-nav p-3 px-md-4 navbar navbar-expand-lg navbar-light bg-light mb-4">
+  <a class="navbar-brand">Админ-панель</a>
+  <button (click)="openMenu()" class="navbar-toggler" type="button" data-toggle="collapse"
+    data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" [routerLink]="['/list-user']" routerLinkActive="txt-dark-bread">Сотрудники</a>
+      <a class="nav-item nav-link" [routerLink]="['/admin-comment']" routerLinkActive="txt-dark-bread">Комментарии</a>
+      <a class="nav-item nav-link" [routerLink]="['/dashboard']" routerLinkActive="txt-dark-bread">Дашборд</a>
+      <a class="nav-item nav-link" [routerLink]="['/archive']" routerLinkActive="txt-dark-bread">Архив
+        товаров</a>
+    </div>
+  </div>
+</nav>
+<div class="my-addmenu flex-column align-items-center p-3 bg-light mb-4" *ngIf="addMenu">
+  <a class="nav-item nav-link text-center txt-dark-bread" [routerLink]="['/list-user']"
+    routerLinkActive="text-dark">Сотрудники</a>
+  <a class="nav-item nav-link text-center txt-dark-bread" [routerLink]="['/admin-comment']"
+    routerLinkActive="text-dark">Комментарии</a>
+  <a class="nav-item nav-link text-center txt-dark-bread" [routerLink]="['/dashboard']"
+    routerLinkActive="text-dark">Дашборд</a>
+  <a class="nav-item nav-link text-center txt-dark-bread" [routerLink]="['/archive']" routerLinkActive="text-dark">Архив
+    товаров</a>
+  <br>
 </div>
