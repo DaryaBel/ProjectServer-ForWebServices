@@ -11,24 +11,42 @@ import { ListUserComponent } from './list-user/list-user.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminCommentComponent } from './admin-comment/admin-comment.component';
 import { OldDeleteComponent } from './old-delete/old-delete.component';
+import { RouteGuard } from './route.guard';
 
 
 const routes: Routes = [
   { path: "", component: ListComponent },
   { path: "favour", component: FavouriteComponent },
-  { path: "registration", component: RegistrationComponent },
-  { path: "login", component: AuthorizationComponent },
-  { path: "add", component: AddComponent },
+  {
+    path: "registration",
+    component: RegistrationComponent,
+    canActivate: [RouteGuard],
+  },
+  {
+    path: "login",
+    component: AuthorizationComponent,
+    canActivate: [RouteGuard],
+  },
+  { path: "add", component: AddComponent, canActivate: [RouteGuard] },
   { path: "products/:id", component: ViewComponent },
-  { path: "add-role", component: AddRoleComponent },
-  { path: "list-user", component: ListUserComponent },
-  { path: "dashboard", component: AdminComponent },
-  { path: "admin-comment", component: AdminCommentComponent },
-  { path: "archive", component: OldDeleteComponent },
+  { path: "add-role", component: AddRoleComponent, canActivate: [RouteGuard] },
+  {
+    path: "list-user",
+    component: ListUserComponent,
+    canActivate: [RouteGuard],
+  },
+  { path: "dashboard", component: AdminComponent, canActivate: [RouteGuard] },
+  {
+    path: "admin-comment",
+    component: AdminCommentComponent,
+    canActivate: [RouteGuard],
+  },
+  { path: "archive", component: OldDeleteComponent, canActivate: [RouteGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [RouteGuard],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

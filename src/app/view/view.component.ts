@@ -16,6 +16,8 @@ export class ViewComponent implements OnInit {
   // Лoгическая переменная, определяющая режим чтения или редактирования включен
   editOrNot = true;
   res;
+  new;
+  old;
   heart = false;
   hide3 = true;
   hide2 = true;
@@ -63,6 +65,7 @@ export class ViewComponent implements OnInit {
     } else {
       this.hasOrNot = `${this.product.number} в наличии`;
     }
+    this.old = this.product.number;
     console.log(this.product);
     if (localStorage.getItem("id") !== null) {
       let response;
@@ -88,9 +91,13 @@ export class ViewComponent implements OnInit {
     if (this.product.id != "") {
       // Инициализация FormGroup, создание FormControl, и назанчение Validators
       this.form = new FormGroup({
-        price: new FormControl(`${this.product.price}`, [Validators.required]),
+        price: new FormControl(`${this.product.price}`, [
+          Validators.required,
+          Validators.min(1),
+        ]),
         number: new FormControl(`${this.product.number}`, [
           Validators.required,
+          Validators.min(0),
         ]),
       });
     }
@@ -130,6 +137,8 @@ export class ViewComponent implements OnInit {
   }
   // Оправляет запрос изменения информации в карточки на сервер или включает редим редактирования
   async onChange() {
+    let changeNum = '';
+    let different = 0;
     if (!this.editOrNot) {
       let newProduct = new Product(
         this.product.id,
@@ -142,7 +151,39 @@ export class ViewComponent implements OnInit {
         this.product.description,
         this.product.ingredients
       );
+      this.new = this.form.value.number;
+      console.log('new ', this.new);
+      console.log('old ', this.old);
       try {
+        if (this.new > this.old) {
+          console.log("увеличение товаров с ", this.old, " до ", this.new);
+          changeNum = "+";
+          different = this.new - this.old;
+          let obj = {
+            idproduct: this.product.id,
+            operation: changeNum,
+            different: different,
+          };
+          let res = await this.mainService.post(
+            JSON.stringify(obj),
+            `/history`
+          );
+
+        }
+        if (this.new < this.old) {
+          console.log("продажа товаров в числе  ", this.old - this.new);
+          changeNum = "-";
+          different = this.old - this.new;
+          let obj = {
+            idproduct: this.product.id,
+            operation: changeNum,
+            different: different,
+          };
+          let res = await this.mainService.post(
+            JSON.stringify(obj),
+            `/history`
+          );
+        }
         let res = await this.mainService.put(
           JSON.stringify(newProduct),
           `/products/${this.product.id}`
@@ -150,6 +191,7 @@ export class ViewComponent implements OnInit {
       } catch (error) {
         console.log(error);
       }
+      this.old = this.form.value.number;
       this.product.price = this.form.value.price;
       this.product.number = this.form.value.number;
       this.numberOfItem();

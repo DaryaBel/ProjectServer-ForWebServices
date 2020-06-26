@@ -11,8 +11,14 @@ export class AdminComponent implements OnInit {
   chart1;
   chart2;
   chart3;
-  datasets = [];
-  labels = [];
+  datasetsFavor = [];
+  labelsFavor = [];
+  datasetsComment = [];
+  labelsComment = [];
+  datasetsSalesAdd = [];
+  datasetsSalesSubtract = [];
+  labelsSales = [];
+  idSales = [];
   colors = [
     "#cd84f1",
     "#ffcccc",
@@ -36,18 +42,58 @@ export class AdminComponent implements OnInit {
   constructor(private mainService: MainService) {}
 
   async ngOnInit() {
-    let result;
+    let resultFavor;
+    let resultComment;
+    let resultSales;
     try {
-      result = await this.mainService.get(`/statistic/favor`);
-      console.log(result);
-      for (const one of result) {
-        this.datasets.push(one.favourcount);
-        this.labels.push(one.name);
+      resultFavor = await this.mainService.get(`/statistic/favor`);
+      console.log(resultFavor);
+      for (const one of resultFavor) {
+        this.datasetsFavor.push(one.favourcount);
+        this.labelsFavor.push(one.name);
+      }
+      //
+      resultComment = await this.mainService.get(`/statistic/comments`);
+      console.log(resultComment);
+      for (const one of resultComment) {
+        this.datasetsComment.push(one.commentcount);
+        this.labelsComment.push(one.name);
+      }
+
+      resultSales = await this.mainService.get(`/statistic/sales`);
+      console.log(resultSales);
+      for (const one in resultSales) {
+        // console.log(this.idSales);
+        
+        let index = this.idSales.findIndex((el) => {
+               return el == resultSales[one].id;
+        });
+        // console.log(index);
+        if (index == -1) {
+          this.idSales.push(resultSales[one].id);
+          this.labelsSales.push(resultSales[one].name);
+          if (resultSales[one].operation == "+") {
+            this.datasetsSalesAdd.push(resultSales[one].sum);
+            this.datasetsSalesSubtract.push(0);
+          } else if (resultSales[one].operation == "-") {
+            this.datasetsSalesSubtract.push(resultSales[one].sum);
+            this.datasetsSalesAdd.push(0);
+          }
+        } else { 
+          if (resultSales[one].operation == "+") {
+            this.datasetsSalesAdd[index]=resultSales[one].sum;
+          } else if (resultSales[one].operation == "-") {
+            this.datasetsSalesSubtract[index]=resultSales[one].sum;
+          }
+        }
       }
     } catch (error) {
       console.log(error);
     }
-
+    console.log(this.idSales);  
+    console.log(this.labelsSales);
+    console.log(this.datasetsSalesAdd);
+    console.log(this.datasetsSalesSubtract);
     this.chart1 = new Chart("pie", {
       type: "pie",
       options: {
@@ -67,21 +113,108 @@ export class AdminComponent implements OnInit {
       data: {
         datasets: [
           {
-            data: this.datasets,
-            backgroundColor: this.shuffle(this.colors),
+            data: this.datasetsFavor,
+            backgroundColor: this.colors,
             label: "",
           },
         ],
-        labels: this.labels,
+        labels: this.labelsFavor,
       },
     });
-  }
 
-  shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
+    //
+
+    this.chart2 = new Chart("bar", {
+      type: "bar",
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: "Количество комментариев к товарам за текущую неделю",
+        },
+        legend: {
+          position: "top",
+        },
+        animation: {
+          animateScale: true,
+          animateRotate: true,
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                suggestedMax: 20,
+              },
+            },
+          ],
+        },
+      },
+      data: {
+        labels: this.labelsComment,
+        datasets: [
+          {
+            type: "bar",
+            label: "Количество комментариев",
+            data: this.datasetsComment,
+            maxBarThickness: 30,
+            backgroundColor: "rgba(255,0,255,0.4)",
+            borderColor: "rgba(255,0,255,0.4)",
+            fill: false,
+          },
+        ],
+      },
+    });
+
+    this.chart3 = new Chart("barHorizontal", {
+      type: "horizontalBar",
+      data: {
+        labels: this.labelsSales,
+        datasets: [
+          {
+            label: "Продано",
+            data: this.datasetsSalesSubtract,
+            fill: false,
+            backgroundColor: "rgba(255,0,255,0.4)",
+            borderColor: "rgba(255,0,255,0.4)",
+            borderWidth: 1,
+            maxBarThickness: 30,
+          },
+          {
+            label: "Изготовлено",
+            data: this.datasetsSalesAdd,
+            fill: false,
+            backgroundColor: "rgba(0,255,255,0.4)",
+            borderColor: "rgba(0,255,255,0.4)",
+            borderWidth: 1,
+            maxBarThickness: 30,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: "Статистика продажи и производства товаров за текущий месяц",
+        },
+        legend: {
+          position: "top",
+        },
+        animation: {
+          animateScale: true,
+          animateRotate: true,
+        },
+        scales: {
+          xAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                suggestedMax: 100,
+              },
+            },
+          ],
+        },
+      },
+    });
   }
 }

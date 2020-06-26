@@ -1,5 +1,6 @@
 <div class="bg-bread d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-bold txt-dark-bread" [routerLink]="['/']">Хлебник и хлебница</h5>
+    <h5 class="my-0 mr-md-auto font-weight-bold txt-dark-bread" (click)="addMenu=false" [routerLink]="['/']">Хлебник и
+      хлебница</h5>
     <nav class="my-2 my-md-0 mr-md-3">
       <div *ngIf="(!logOut) && (role!='')">
         <a class="p-2 text-dark">{{role}}</a>
@@ -10,15 +11,15 @@
     </nav>
     <div *ngIf="!logOut">
       <a class="btn-gray-bread btn btn-outline-primary mr-2 mb-2 mb-md-0 mb-xl-0 mb-lg-0"
-        [routerLink]="['/favour']">Избранное</a>
+        (click)="addMenu=false" [routerLink]="['/favour']">Избранное</a>
     </div>
     <div *ngIf="logOut">
       <a class="btn-gray-bread btn btn-outline-primary"
-        [routerLink]="['/login']">Войти</a>
+       (click)="addMenu=false" [routerLink]="['/login']">Войти</a>
     </div>
     <div *ngIf="!logOut">
      <a (click)="onLogOut()"
-       class="btn-gray-bread btn btn-outline-primary">Выйти</a>
+      (click)="addMenu=false" class="btn-gray-bread btn btn-outline-primary">Выйти</a>
   </div>
 </div>
 <nav *ngIf="(!logOut) && (role=='Администратор')"
@@ -32,22 +33,26 @@
 
   <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" [routerLink]="['/list-user']" routerLinkActive="txt-dark-bread">Сотрудники</a>
-      <a class="nav-item nav-link" [routerLink]="['/admin-comment']" routerLinkActive="txt-dark-bread">Комментарии</a>
-      <a class="nav-item nav-link" [routerLink]="['/dashboard']" routerLinkActive="txt-dark-bread">Дашборд</a>
-      <a class="nav-item nav-link" [routerLink]="['/archive']" routerLinkActive="txt-dark-bread">Архив
+      <a class="nav-item nav-link" (click)="addMenu=false" [routerLink]="['/list-user']" routerLinkActive="txt-dark-bread">Сотрудники</a>
+      <a class="nav-item nav-link" (click)="addMenu=false" [routerLink]="['/admin-comment']"
+        routerLinkActive="txt-dark-bread">Комментарии</a>
+      <a class="nav-item nav-link" (click)="addMenu=false" [routerLink]="['/dashboard']"
+        routerLinkActive="txt-dark-bread">Дашборд</a>
+      <a class="nav-item nav-link" (click)="addMenu=false" [routerLink]="['/archive']"
+        routerLinkActive="txt-dark-bread">Архив
         товаров</a>
     </div>
   </div>
 </nav>
 <div class="my-addmenu flex-column align-items-center p-3 bg-light mb-4" *ngIf="addMenu">
-  <a class="nav-item nav-link text-center txt-dark-bread" [routerLink]="['/list-user']"
+  <a class="nav-item nav-link text-center txt-dark-bread" (click)="addMenu=false" [routerLink]="['/list-user']"
     routerLinkActive="text-dark">Сотрудники</a>
-  <a class="nav-item nav-link text-center txt-dark-bread" [routerLink]="['/admin-comment']"
+  <a class="nav-item nav-link text-center txt-dark-bread" (click)="addMenu=false" [routerLink]="['/admin-comment']"
     routerLinkActive="text-dark">Комментарии</a>
-  <a class="nav-item nav-link text-center txt-dark-bread" [routerLink]="['/dashboard']"
+  <a class="nav-item nav-link text-center txt-dark-bread" (click)="addMenu=false" [routerLink]="['/dashboard']"
     routerLinkActive="text-dark">Дашборд</a>
-  <a class="nav-item nav-link text-center txt-dark-bread" [routerLink]="['/archive']" routerLinkActive="text-dark">Архив
+  <a class="nav-item nav-link text-center txt-dark-bread" (click)="addMenu=false" [routerLink]="['/archive']"
+    routerLinkActive="text-dark">Архив
     товаров</a>
   <br>
 </div>

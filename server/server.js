@@ -279,6 +279,23 @@ app.put('/api/products/:id', function (req, res) {
   }
 })
 
+// Обработка добавления истории изменения количества
+app.post("/api/history", (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  console.log('Пришёл POST запрос для добавления истории изменения количества:');
+  console.log(req.body);
+  connection.query(`INSERT INTO historychange (idproduct, operation, different) VALUES (?, ?, ?);`,
+    [req.body.idproduct, req.body.operation, req.body.different],
+    function (err) {
+      if (err) {
+        res.status(500).send('Ошибка сервера при добавлении истории изменения количества')
+        console.log(err);
+      }
+      console.log('Добавление истории изменения количества прошло успешно');
+      res.json("create");
+    });
+})
+
 // Получение списка сотрудников
 app.get('/api/users', function (req, res) {
   try {
@@ -523,19 +540,20 @@ app.get("/api/statistic/favor", function (req, res) {
   }
 });
 
-// Обработка статистики избранного
-app.get("/api/statistic/favor", function (req, res) {
+
+// Обработка статистики комментариев за неделю
+app.get("/api/statistic/comments", function (req, res) {
   try {
     connection.query(
-      "SELECT count(*) AS favourcount, products.name FROM `favour` INNER JOIN `products` ON products.id = favour.idproduct GROUP BY favour.idproduct",
+      "SELECT count(*) AS commentcount, products.name FROM `comment` INNER JOIN `products` ON products.id = comment.idproduct WHERE  year(datetime) = year(now()) and week(datetime, 1) = week(now(), 1) GROUP BY comment.idproduct",
       function (error, results) {
         if (error) {
           res
             .status(500)
-            .send("Ошибка сервера при получении статистики избранного");
+            .send("Ошибка сервера при получении статистики комментариев за неделю");
           console.log(error);
         }
-        console.log("Результаты получения статистики избранного");
+        console.log("Результаты получения статистики комментариев за неделю");
         console.log(results);
         res.json(results);
       }
@@ -544,6 +562,54 @@ app.get("/api/statistic/favor", function (req, res) {
     console.log(error);
   }
 });
+
+// Обработка статистики продаж и выпечки продукции за месяц
+app.get("/api/statistic/sales", function (req, res) {
+  try {
+    connection.query(
+       "SELECT products.id, sum(different) AS sum, products.name, operation FROM `historychange` INNER JOIN `products` ON products.id = historychange.idproduct WHERE  year(datetime) = year(now()) and week(datetime, 1) = week(now(), 1) GROUP BY historychange.idproduct, historychange.operation",
+       function (error, results) {
+        if (error) {
+          res
+            .status(500)
+            .send("Ошибка сервера при получении статистики продаж и выпечки продукции за месяц");
+          console.log(error);
+        }
+        console.log("Результаты получения статистики продаж и выпечки продукции за месяц");
+        console.log(results);
+        // let arr;
+        // for (const one in results) {
+        //   // console.log(results[one]);
+        //   let minResults = results;
+        //   minResults.splice(one, 1);
+        //   // console.log(minResults); 
+        //   if (minResults != undefined ) { 
+        //     let index = this.minResults.findIndex((el) => {
+        //        return el.id == results[one].id;
+        //     });
+        //     console.log(minResults[index]);
+        //     console.log(results[index+1]);
+        //   }
+          // let index = this.minResults.findIndex((el) => {
+          //    return el.id == results[one].id;
+          // });
+          // console.log(minResults[index]);
+          // console.log(results[index+1]);
+          // let obj = {
+          //   name: results[one].name,
+          //   add: ,
+          //   subtract: 
+            
+          // }
+        // }
+        res.json(results);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 // Получение файла и загрузка его в папку uploads
 app.post('/upload-photo/', async (req, res) => {

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -22,8 +22,9 @@ import { FormsModule } from "@angular/forms";
 import { AdminComponent } from './admin/admin.component';
 import { AdminCommentComponent } from './admin-comment/admin-comment.component';
 import { ChartsModule } from "ng2-charts";
-import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { OldDeleteComponent } from './old-delete/old-delete.component';
+import { RouteGuard } from './route.guard';
+import { RouteErrorHandler } from './route-error-handler';
 
 @NgModule({
   declarations: [
@@ -54,8 +55,6 @@ import { OldDeleteComponent } from './old-delete/old-delete.component';
 
     AdminCommentComponent,
 
-    PieChartComponent,
-
     OldDeleteComponent,
   ],
   imports: [
@@ -66,9 +65,15 @@ import { OldDeleteComponent } from './old-delete/old-delete.component';
     FormsModule,
     ReactiveFormsModule,
     AngularFileUploaderModule,
-    ChartsModule
+    ChartsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: RouteErrorHandler,
+    },
+    RouteGuard,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
