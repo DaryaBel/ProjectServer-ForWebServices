@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainService } from '../shared/services/main.service';
 import { Product } from '../shared/models/product.model';
 import { isEmptyExpression } from '@angular/compiler';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: "app-list",
@@ -27,7 +28,7 @@ export class ListComponent implements OnInit {
     try {
       let result = await this.mainService.get("/products");
 
-     if (typeof result[0] !== "undefined") {
+      if (typeof result[0] !== "undefined") {
         this.notfound = false;
         console.log(result);
         for (const one in result) {
@@ -56,6 +57,13 @@ export class ListComponent implements OnInit {
   // Хук жизненного цикла по изменению
   // Проверяет наличие в LocalStorage элемента роли, чтобы понять авторизирован пользователь или нет
   ngDoCheck() {
+    this.search(this.products, this.searchString);
+     if (
+       Object.keys(this.search(this.products, this.searchString)).length == 0
+     ) {
+       console.log("пуст");
+       this.notfound = true;
+     } else this.notfound = false;
     this.hide1 = true;
     this.hide2 = true;
     this.hide3 = true;
@@ -84,6 +92,18 @@ export class ListComponent implements OnInit {
     this.products.splice(index, 1);
     if (this.products.length == 0) {
       this.notfound = true;
+    }
+  }
+  search(items, searchString) {
+    if (!isNullOrUndefined(items) && searchString.trim().length > 0) {
+      let newArr = items.filter(
+        (item) =>
+          item.name.toLowerCase().indexOf(searchString.toLowerCase()) === 0 ||
+          item.artikul.toLowerCase().indexOf(searchString.toLowerCase()) === 0
+      );
+      return newArr;
+    }  else {
+      return items;
     }
   }
 }

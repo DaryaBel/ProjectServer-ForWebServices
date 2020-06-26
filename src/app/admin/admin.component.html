@@ -1,12 +1,15 @@
 <div class="container">
   <div class="row p-0 m-0">
-    <div class="col-12 col-lg-6 col-xl-6 p-0 m-0 mb-3">
+    <h3 *ngIf="notfound1 && notfound2 && notfound3 " class="font-weight-normal">Диаграммы не созданы по причине
+      отсутствия товаров в
+      каталоге</h3>
+    <div *ngIf="!notfound1" class="col-12 col-lg-6 col-xl-6 p-0 m-0 mb-3">
       <canvas id="pie" style="width: 100%;"></canvas>
     </div>
-    <div class="col-12 col-lg-6 col-xl-6 p-0 m-0 mb-3">
+    <div *ngIf="!notfound2" class="col-12 col-lg-6 col-xl-6 p-0 m-0 mb-3">
       <canvas style="width: 100%;" id="bar"></canvas>
     </div>
-    <div class="col-12 col-lg-6 col-xl-6 p-0 m-0 mb-3">
+    <div *ngIf="!notfound3" class="col-12 col-lg-6 col-xl-6 p-0 m-0 mb-3">
       <canvas style="width: 100%;" id="barHorizontal"></canvas>
     </div>
 

@@ -17,11 +17,12 @@
                </div>
             <div class="form-group">
                 <label for="text">Введите цену товара</label>
-                <input (focus)="onSucces()" formControlName="price" type="text" class="foc-bread br-gray-bread form-control" id="price">
+                <input (focus)="onSucces()" formControlName="price" type="number" class="foc-bread br-gray-bread form-control" id="price">
                </div>
             <div class="form-group">
                 <label for="number">Введите количество единиц товара</label>
-                <input (focus)="onSucces()" formControlName="number" type="text" class="foc-bread br-gray-bread form-control" id="number">
+                <input (focus)="onSucces()" formControlName="number" type="number"
+                  class="foc-bread br-gray-bread form-control" id="number">
             </div>
             <div class="form-group">
                 <label for="weight">Введите вес товара</label>
@@ -48,7 +49,8 @@
             </div>
              
              <h5 *ngIf="!isEmpty" class="text-danger">Одно или несколько полей пустые!</h5>
-             <button class="btn btn-primary btn-gray-bread btn-block" (click)="onAdd()">Создать</button>
+             <button class="btn btn-primary btn-gray-bread btn-block" [disabled]="form.invalid"
+               (click)="onAdd()">Создать</button>
     <br><br><br><br><br><br><br>
 
   </form>

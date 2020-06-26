@@ -37,15 +37,21 @@ export class AddComponent implements OnInit {
   ngOnInit() {
     // Инициализация FormGroup, создание FormControl, и назанчение Validators
     this.form = new FormGroup({
-      'name': new FormControl('', [Validators.required]),
-      'artikul': new FormControl('', [Validators.required]),
-      'price': new FormControl('', [Validators.required]),
-      'weight': new FormControl('', [Validators.required]),
-      'description': new FormControl('', [Validators.required]),
-      'number': new FormControl('', [Validators.required]),
-      'ingredients': new FormControl('', [Validators.required])
+      name: new FormControl("", [Validators.required]),
+      artikul: new FormControl("", [Validators.required]),
+      price: new FormControl("", [
+        Validators.required,
+        Validators.min(1),
+      ]),
+      number: new FormControl(``, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      weight: new FormControl("", [Validators.required]),
+      description: new FormControl("", [Validators.required]),
+      ingredients: new FormControl("", [Validators.required]),
       // 'photo': new FormControl('', [Validators.required]),
-      })
+    });
   }
 
   // Функция добавления информации о товаре, полученной с формы, в базу данных

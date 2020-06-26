@@ -129,9 +129,15 @@ export class ViewComponent implements OnInit {
   async onDelete() {
     try {
       let result = await this.mainService.delete(`/delete/${this.product.id}`);
+      let result2 = await this.mainService.post(
+        JSON.stringify(this.product),
+        "/archive"
+      );
+      
     } catch (error) {
       console.log(error);
     }
+
     this.del.emit(this.product.id);
     this.router.navigate(["/"]);
   }

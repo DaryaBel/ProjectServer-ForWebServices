@@ -11,6 +11,9 @@ export class AdminComponent implements OnInit {
   chart1;
   chart2;
   chart3;
+  notfound1 = false;
+  notfound2 = false;
+  notfound3 = false;
   datasetsFavor = [];
   labelsFavor = [];
   datasetsComment = [];
@@ -64,9 +67,9 @@ export class AdminComponent implements OnInit {
       console.log(resultSales);
       for (const one in resultSales) {
         // console.log(this.idSales);
-        
+
         let index = this.idSales.findIndex((el) => {
-               return el == resultSales[one].id;
+          return el == resultSales[one].id;
         });
         // console.log(index);
         if (index == -1) {
@@ -79,21 +82,35 @@ export class AdminComponent implements OnInit {
             this.datasetsSalesSubtract.push(resultSales[one].sum);
             this.datasetsSalesAdd.push(0);
           }
-        } else { 
+        } else {
           if (resultSales[one].operation == "+") {
-            this.datasetsSalesAdd[index]=resultSales[one].sum;
+            this.datasetsSalesAdd[index] = resultSales[one].sum;
           } else if (resultSales[one].operation == "-") {
-            this.datasetsSalesSubtract[index]=resultSales[one].sum;
+            this.datasetsSalesSubtract[index] = resultSales[one].sum;
           }
         }
       }
     } catch (error) {
       console.log(error);
     }
-    console.log(this.idSales);  
+    console.log(this.idSales);
     console.log(this.labelsSales);
     console.log(this.datasetsSalesAdd);
     console.log(this.datasetsSalesSubtract);
+
+    if (Object.keys(this.labelsFavor).length == 0) {
+      console.log("пуст1");
+      this.notfound1 = true;
+    } else this.notfound1 = false;
+    if (Object.keys(this.labelsComment).length == 0) {
+      console.log("пуст2");
+      this.notfound2 = true;
+    } else this.notfound2 = false;
+    if (Object.keys(this.labelsSales).length == 0) {
+      console.log("пуст3");
+      this.notfound3 = true;
+    } else this.notfound3 = false;
+
     this.chart1 = new Chart("pie", {
       type: "pie",
       options: {

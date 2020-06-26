@@ -9,6 +9,10 @@
         <a class="p-2 text-dark">{{name}}</a>
       </div>
     </nav>
+    <div *ngIf="(role=='Менеджер')">
+      <a class="btn-gray-bread btn btn-outline-primary mr-2 mb-2 mb-md-0 mb-xl-0 mb-lg-0" (click)="addMenu=false"
+        [routerLink]="['/archive']">Архив товаров</a>
+    </div>
     <div *ngIf="!logOut">
       <a class="btn-gray-bread btn btn-outline-primary mr-2 mb-2 mb-md-0 mb-xl-0 mb-lg-0"
         (click)="addMenu=false" [routerLink]="['/favour']">Избранное</a>

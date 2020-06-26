@@ -19,20 +19,26 @@ export class RouteGuard implements CanActivate {
       this.router.navigate(["/"]);
       return false;
     } else if (
-      localStorage.getItem("role") == null ||
-      localStorage.getItem("role") == "3"
-    ) {
-      this.router.navigate(["/"]);
-      return false;
-    } else if (
-      (path == "add-role" ||
-        path == "list-user" ||
-        path == "dashboard" ||
-        path == "admin-comment") &&
-      localStorage.getItem("role") == "2"
-    ) {
-      this.router.navigate(["/"]);
-      return false;
-    } else return true;
+      (localStorage.getItem("role") == null ||
+      localStorage.getItem("role") == "3") &&
+      (path == "add" ||
+      path == "add-role" ||
+      path == "list-user" ||
+      path == "dashboard" ||
+      path == "admin-comment" ||
+      path == "archive"
+           )) {
+             this.router.navigate(["/"]);
+             return false;
+           } else if (
+             (path == "add-role" ||
+               path == "list-user" ||
+               path == "dashboard" ||
+               path == "admin-comment") &&
+             localStorage.getItem("role") == "2"
+           ) {
+             this.router.navigate(["/"]);
+             return false;
+           } else return true;
   }
 }
