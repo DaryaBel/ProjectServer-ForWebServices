@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainService } from '../shared/services/main.service';
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "app-item",
@@ -8,7 +9,7 @@ import { MainService } from '../shared/services/main.service';
   styleUrls: ["./item.component.css"],
 })
 export class ItemComponent implements OnInit {
-  // Логическая переменная определяющая наличие или отсуствие кнопки Удалить в карточке
+  url = environment.baseUrl;
   hide1 = true;
   hide2 = true;
   hide3 = true;

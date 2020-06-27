@@ -11,7 +11,7 @@
       <div *ngFor="let item of products" class="col-lg-3 col-xl-3 col-md-6 col-sm-12 col-xs-12">
           <div class="mb-3 ">
             <div class="card mb-4 shadow-sm">
-              <img (click)="onLink(item.id)" [src]="'http://localhost:3001/api/photo/' + item.filename"
+              <img (click)="onLink(item.id)" [src]="url +'/photo/' + item.filename"
                 class="photo card-img-top" alt="">
               <div class="card-body">
                 <p class="card-text h5" style="cursor: pointer;" (click)="onLink(item.id)">{{item.name}}</p>

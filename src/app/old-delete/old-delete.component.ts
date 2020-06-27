@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainService } from '../shared/services/main.service';
 import { Product } from '../shared/models/product.model';
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "app-old-delete",
@@ -10,6 +11,7 @@ import { Product } from '../shared/models/product.model';
 })
 export class OldDeleteComponent implements OnInit {
   demonstrate = true;
+  url = environment.baseUrl;
   loading = false;
   notfound = false;
   products: Product[] = [];
@@ -74,7 +76,6 @@ export class OldDeleteComponent implements OnInit {
       console.log(err);
     }
     this.onDelete(product.id);
-    
   }
 }
 

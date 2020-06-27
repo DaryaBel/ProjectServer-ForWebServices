@@ -447,7 +447,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-3 \">\n    <div class=\"card mb-4 shadow-sm\" *ngIf=\"demonstrate\">\n        <img class=\"icon\" *ngIf=\"((heart) && (!hide3))\" (click)=\"deleteFavourite()\" src=\"/assets/heart-close.png\">\n        <img class=\"icon\" *ngIf=\"((!heart) && (!hide3))\" (click)=\"addFavourite()\" src=\"/assets/heart-open.png\" alt=\"\">\n        <img (click)=\"onLink(item.id)\" [src]=\"'http://localhost:3001/api/photo/' + item.filename\" class=\"photo card-img-top\" alt=\"\">\n        <div class=\"card-body\">\n          <p class=\"card-text h5\" style=\"cursor: pointer;\" (click)=\"onLink(item.id)\">{{item.name}}</p>\n          <p class=\"card-text h5 font-weight-normal\">{{item.price}}₽</p>\n          <div class=\"d-flex justify-content-between align-items-center\">\n            <div class=\"btn-group\" *ngIf=\"!hide2\">\n              <button type=\"button\" class=\" btn-sm btn btn-danger\" (click)=\"onDelete(item)\">Удалить</button> \n            </div>\n            <small >{{hasOrNot}}</small>\n          </div>\n        </div>\n      </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-3 \">\n    <div class=\"card mb-4 shadow-sm\" *ngIf=\"demonstrate\">\n        <img class=\"icon\" *ngIf=\"((heart) && (!hide3))\" (click)=\"deleteFavourite()\" src=\"/assets/heart-close.png\">\n        <img class=\"icon\" *ngIf=\"((!heart) && (!hide3))\" (click)=\"addFavourite()\" src=\"/assets/heart-open.png\" alt=\"\">\n        <img (click)=\"onLink(item.id)\" [src]=\"url +'/photo/' + item.filename\" class=\"photo card-img-top\" alt=\"\">\n        <div class=\"card-body\">\n          <p class=\"card-text h5\" style=\"cursor: pointer;\" (click)=\"onLink(item.id)\">{{item.name}}</p>\n          <p class=\"card-text h5 font-weight-normal\">{{item.price}}₽</p>\n          <div class=\"d-flex justify-content-between align-items-center\">\n            <div class=\"btn-group\" *ngIf=\"!hide2\">\n              <button type=\"button\" class=\" btn-sm btn btn-danger\" (click)=\"onDelete(item)\">Удалить</button> \n            </div>\n            <small >{{hasOrNot}}</small>\n          </div>\n        </div>\n      </div>\n</div>");
 
 /***/ }),
 
@@ -486,7 +486,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (" <div *ngIf=\"loading\" style=\"height: calc(100vh - 73px - 2rem);\"\n   class=\"container d-flex justify-content-center align-content-center\">\n   <div class=\"spinner-border txt-gray-bread m-auto\" role=\"status\">\n     <span class=\"sr-only \">Loading...</span>\n   </div>\n </div>\n <div class=\"container\" *ngIf=\"!loading\">\n    <h2 class=\"mb-3\">Архив товаров</h2>\n    <div *ngIf=\"!notfound; else blockNotFound\"\n      class=\"row mt-3 justify-content-md-start justify-content-lg-between justify-content-center  justify-content-xl-start\">\n      <div *ngFor=\"let item of products\" class=\"col-lg-3 col-xl-3 col-md-6 col-sm-12 col-xs-12\">\n          <div class=\"mb-3 \">\n            <div class=\"card mb-4 shadow-sm\">\n              <img (click)=\"onLink(item.id)\" [src]=\"'http://localhost:3001/api/photo/' + item.filename\"\n                class=\"photo card-img-top\" alt=\"\">\n              <div class=\"card-body\">\n                <p class=\"card-text h5\" style=\"cursor: pointer;\" (click)=\"onLink(item.id)\">{{item.name}}</p>\n                <p class=\"card-text h5 font-weight-normal\">{{item.price}}₽</p>\n                <div class=\"d-flex justify-content-between align-items-center\">\n                  <div class=\"btn-group\">\n                    <button type=\"button\" class=\" btn-sm btn btn-danger\" (click)=\"onDelete(item.id)\">Удалить навсегда</button>\n                    <button type=\"button\" class=\" btn-sm btn btn-success\" (click)=\"onAdd(item)\">Вернуть в каталог</button>\n                 </div>\n                </div>\n              </div>\n            </div>\n          </div>\n      </div>  \n    </div>\n    <ng-template #blockNotFound>\n      <h3 class=\"font-weight-normal\">Товаров в архиве еще нет.</h3>\n    </ng-template>\n </div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = (" <div *ngIf=\"loading\" style=\"height: calc(100vh - 73px - 2rem);\"\n   class=\"container d-flex justify-content-center align-content-center\">\n   <div class=\"spinner-border txt-gray-bread m-auto\" role=\"status\">\n     <span class=\"sr-only \">Loading...</span>\n   </div>\n </div>\n <div class=\"container\" *ngIf=\"!loading\">\n    <h2 class=\"mb-3\">Архив товаров</h2>\n    <div *ngIf=\"!notfound; else blockNotFound\"\n      class=\"row mt-3 justify-content-md-start justify-content-lg-between justify-content-center  justify-content-xl-start\">\n      <div *ngFor=\"let item of products\" class=\"col-lg-3 col-xl-3 col-md-6 col-sm-12 col-xs-12\">\n          <div class=\"mb-3 \">\n            <div class=\"card mb-4 shadow-sm\">\n              <img (click)=\"onLink(item.id)\" [src]=\"url +'/photo/' + item.filename\"\n                class=\"photo card-img-top\" alt=\"\">\n              <div class=\"card-body\">\n                <p class=\"card-text h5\" style=\"cursor: pointer;\" (click)=\"onLink(item.id)\">{{item.name}}</p>\n                <p class=\"card-text h5 font-weight-normal\">{{item.price}}₽</p>\n                <div class=\"d-flex justify-content-between align-items-center\">\n                  <div class=\"btn-group\">\n                    <button type=\"button\" class=\" btn-sm btn btn-danger\" (click)=\"onDelete(item.id)\">Удалить навсегда</button>\n                    <button type=\"button\" class=\" btn-sm btn btn-success\" (click)=\"onAdd(item)\">Вернуть в каталог</button>\n                 </div>\n                </div>\n              </div>\n            </div>\n          </div>\n      </div>  \n    </div>\n    <ng-template #blockNotFound>\n      <h3 class=\"font-weight-normal\">Товаров в архиве еще нет.</h3>\n    </ng-template>\n </div>\n\n");
 
 /***/ }),
 
@@ -512,7 +512,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"loading\" style=\"height: calc(100vh - 73px - 2rem);\" class=\"container d-flex justify-content-center align-content-center\">\n    <div  class=\"spinner-border txt-gray-bread m-auto\" role=\"status\">\n      <span class=\"sr-only \">Loading...</span>\n    </div>\n</div>\n\n<div *ngIf=\"!loading\" class=\"container mt-5\">\n    <div class=\"row flex-column-reverse p-3 p-lg-0 p-xl-0 flex-lg-row flex-xl-row \">\n        <div class=\"d-flex flex-column col-lg-6 col-xl-6\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div>\n                    <h3 class=\"mb-0\">{{product.name}}</h3>\n                    <h5 class=\"mb-2 text-secondary font-weight-normal\">{{product.artikul}}</h5>\n                </div>\n                <img class=\"icon\" *ngIf=\"((heart) && (!hide3))\" (click)=\"deleteFavourite()\" src=\"/assets/heart-close.png\"\n                  alt=\"\">\n                <img class=\"icon\" *ngIf=\"((!heart) && (!hide3))\" (click)=\"addFavourite()\" src=\"/assets/heart-open.png\"\n                  alt=\"\">\n            </div>\n            <p class=\"card-text\">{{product.description}}</p>\n            <p class=\"mb-0 card-text\"><i>Вес:</i>  {{product.weight}}г</p>\n            <p class=\"card-text\"><i>Состав:</i>  {{product.ingredients}}</p>\n            <div *ngIf=\"editOrNot; else anotherblock\" class=\"d-flex flex-row\">\n                <div class=\"col-8 d-flex flex-column p-0\">\n                    <h4 class=\"my-line mb-2\">{{product.price}}₽</h4>\n                    <h5 class=\"font-weight-normal my-line\">{{hasOrNot}}</h5>   \n                </div>\n                <div class=\"col-4 d-flex flex-column align-items-end p-0\" *ngIf=\"!hide2\">\n                    <button class=\"btn btn-primary btn-gray-bread mb-2\" (click)=\"onChange()\">Изменить</button>\n                    <button class=\"btn btn-primary btn-danger\" (click)=\"onDelete()\">Удалить</button>\n                </div>\n            </div>\n            <ng-template #anotherblock >\n                <form [formGroup]=\"form\" class=\"d-flex flex-row\">\n                    <div class=\"col-8 d-flex flex-column p-0\">\n                        <input formControlName=\"price\" type=\"number\" class=\"form-control mb-2 my-line\" id=\"price\">  \n                        <input formControlName=\"number\" type=\"number\" class=\"form-control my-line\" id=\"number\">\n                    </div>\n                    <div class=\"col-4 d-flex flex-column align-items-end p-0\" *ngIf=\"!hide2\">\n                        <button class=\"btn btn-primary btn-gray-bread mb-2\" (click)=\"onChange()\" [disabled]=\"form.invalid\">Сохранить</button>\n                        <button class=\"btn btn-primary btn-danger\" disabled>Удалить</button>\n                    </div>\n                </form>\n            </ng-template>\n        </div>\n        <div class=\"col-lg-6 col-xl-6\">\n            <img class=\"photo w-100 mb-4 shadow\" [src]=\"'http://localhost:3001/api/photo/' + product.filename\"\n              src=\"assets/1.jpg\" alt=\"\">\n        </div>\n    </div>\n    <app-comments>\n    </app-comments>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"loading\" style=\"height: calc(100vh - 73px - 2rem);\" class=\"container d-flex justify-content-center align-content-center\">\n    <div  class=\"spinner-border txt-gray-bread m-auto\" role=\"status\">\n      <span class=\"sr-only \">Loading...</span>\n    </div>\n</div>\n\n<div *ngIf=\"!loading\" class=\"container mt-5\">\n    <div class=\"row flex-column-reverse p-3 p-lg-0 p-xl-0 flex-lg-row flex-xl-row \">\n        <div class=\"d-flex flex-column col-lg-6 col-xl-6\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div>\n                    <h3 class=\"mb-0\">{{product.name}}</h3>\n                    <h5 class=\"mb-2 text-secondary font-weight-normal\">{{product.artikul}}</h5>\n                </div>\n                <img class=\"icon\" *ngIf=\"((heart) && (!hide3))\" (click)=\"deleteFavourite()\" src=\"/assets/heart-close.png\"\n                  alt=\"\">\n                <img class=\"icon\" *ngIf=\"((!heart) && (!hide3))\" (click)=\"addFavourite()\" src=\"/assets/heart-open.png\"\n                  alt=\"\">\n            </div>\n            <p class=\"card-text\">{{product.description}}</p>\n            <p class=\"mb-0 card-text\"><i>Вес:</i>  {{product.weight}}г</p>\n            <p class=\"card-text\"><i>Состав:</i>  {{product.ingredients}}</p>\n            <div *ngIf=\"editOrNot; else anotherblock\" class=\"d-flex flex-row\">\n                <div class=\"col-8 d-flex flex-column p-0\">\n                    <h4 class=\"my-line mb-2\">{{product.price}}₽</h4>\n                    <h5 class=\"font-weight-normal my-line\">{{hasOrNot}}</h5>   \n                </div>\n                <div class=\"col-4 d-flex flex-column align-items-end p-0\" *ngIf=\"!hide2\">\n                    <button class=\"btn btn-primary btn-gray-bread mb-2\" (click)=\"onChange()\">Изменить</button>\n                    <button class=\"btn btn-primary btn-danger\" (click)=\"onDelete()\">Удалить</button>\n                </div>\n            </div>\n            <ng-template #anotherblock >\n                <form [formGroup]=\"form\" class=\"d-flex flex-row\">\n                    <div class=\"col-8 d-flex flex-column p-0\">\n                        <input formControlName=\"price\" type=\"number\" class=\"form-control mb-2 my-line\" id=\"price\">  \n                        <input formControlName=\"number\" type=\"number\" class=\"form-control my-line\" id=\"number\">\n                    </div>\n                    <div class=\"col-4 d-flex flex-column align-items-end p-0\" *ngIf=\"!hide2\">\n                        <button class=\"btn btn-primary btn-gray-bread mb-2\" (click)=\"onChange()\" [disabled]=\"form.invalid\">Сохранить</button>\n                        <button class=\"btn btn-primary btn-danger\" disabled>Удалить</button>\n                    </div>\n                </form>\n            </ng-template>\n        </div>\n        <div class=\"col-lg-6 col-xl-6\">\n            <img class=\"photo w-100 mb-4 shadow\" [src]=\"url +'/photo/' + product.filename\"\n              src=\"assets/1.jpg\" alt=\"\">\n        </div>\n    </div>\n    <app-comments>\n    </app-comments>\n</div>");
 
 /***/ }),
 
@@ -902,6 +902,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _shared_services_main_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/services/main.service */ "./src/app/shared/services/main.service.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -914,7 +916,7 @@ let AddComponent = class AddComponent {
             multiple: false,
             formatsAllowed: ".jpg,.png",
             uploadAPI: {
-                url: "http://localhost:3001/upload-photo",
+                url: `${_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].url}/upload-photo`,
             },
             replaceTexts: {
                 selectFileBtn: 'Выберите файл',
@@ -2158,6 +2160,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _shared_services_main_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/services/main.service */ "./src/app/shared/services/main.service.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -2166,7 +2170,7 @@ let ItemComponent = class ItemComponent {
     constructor(router, mainService) {
         this.router = router;
         this.mainService = mainService;
-        // Логическая переменная определяющая наличие или отсуствие кнопки Удалить в карточке
+        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].baseUrl;
         this.hide1 = true;
         this.hide2 = true;
         this.hide3 = true;
@@ -2557,6 +2561,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _shared_services_main_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/services/main.service */ "./src/app/shared/services/main.service.ts");
 /* harmony import */ var _shared_models_product_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/models/product.model */ "./src/app/shared/models/product.model.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -2567,6 +2573,7 @@ let OldDeleteComponent = class OldDeleteComponent {
         this.router = router;
         this.mainService = mainService;
         this.demonstrate = true;
+        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].baseUrl;
         this.loading = false;
         this.notfound = false;
         this.products = [];
@@ -3089,6 +3096,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _shared_services_main_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/services/main.service */ "./src/app/shared/services/main.service.ts");
 /* harmony import */ var _shared_models_product_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/models/product.model */ "./src/app/shared/models/product.model.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -3106,6 +3115,7 @@ let ViewComponent = class ViewComponent {
         this.loading = false;
         // Лoгическая переменная, определяющая режим чтения или редактирования включен
         this.editOrNot = true;
+        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].baseUrl;
         this.heart = false;
         this.hide3 = true;
         this.hide2 = true;
@@ -3223,13 +3233,13 @@ let ViewComponent = class ViewComponent {
     // Оправляет запрос изменения информации в карточки на сервер или включает редим редактирования
     onChange() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            let changeNum = '';
+            let changeNum = "";
             let different = 0;
             if (!this.editOrNot) {
                 let newProduct = new _shared_models_product_model__WEBPACK_IMPORTED_MODULE_5__["Product"](this.product.id, this.product.name, this.product.filename, this.product.artikul, this.form.value.number, this.form.value.price, this.product.weight, this.product.description, this.product.ingredients);
                 this.new = this.form.value.number;
-                console.log('new ', this.new);
-                console.log('old ', this.old);
+                console.log("new ", this.new);
+                console.log("old ", this.old);
                 try {
                     if (this.new > this.old) {
                         console.log("увеличение товаров с ", this.old, " до ", this.new);
@@ -3345,7 +3355,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const environment = {
     production: false,
-    baseUrl: 'http://localhost:3001/api'
+    baseUrl: 'http://localhost:3001/api',
+    url: 'http://localhost:3001',
 };
 /*
  * For easier debugging in development mode, you can import the following file

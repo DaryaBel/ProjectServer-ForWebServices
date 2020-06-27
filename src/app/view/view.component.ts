@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MainService } from '../shared/services/main.service';
 import { Product } from '../shared/models/product.model';
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "app-view",
@@ -17,6 +18,7 @@ export class ViewComponent implements OnInit {
   editOrNot = true;
   res;
   new;
+  url = environment.baseUrl;
   old;
   heart = false;
   hide3 = true;
@@ -133,7 +135,6 @@ export class ViewComponent implements OnInit {
         JSON.stringify(this.product),
         "/archive"
       );
-      
     } catch (error) {
       console.log(error);
     }
@@ -143,7 +144,7 @@ export class ViewComponent implements OnInit {
   }
   // Оправляет запрос изменения информации в карточки на сервер или включает редим редактирования
   async onChange() {
-    let changeNum = '';
+    let changeNum = "";
     let different = 0;
     if (!this.editOrNot) {
       let newProduct = new Product(
@@ -158,8 +159,8 @@ export class ViewComponent implements OnInit {
         this.product.ingredients
       );
       this.new = this.form.value.number;
-      console.log('new ', this.new);
-      console.log('old ', this.old);
+      console.log("new ", this.new);
+      console.log("old ", this.old);
       try {
         if (this.new > this.old) {
           console.log("увеличение товаров с ", this.old, " до ", this.new);
@@ -174,7 +175,6 @@ export class ViewComponent implements OnInit {
             JSON.stringify(obj),
             `/history`
           );
-
         }
         if (this.new < this.old) {
           console.log("продажа товаров в числе  ", this.old - this.new);

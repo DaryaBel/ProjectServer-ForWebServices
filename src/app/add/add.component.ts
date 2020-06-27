@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MainService } from '../shared/services/main.service';
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: 'app-add',
@@ -13,7 +14,7 @@ export class AddComponent implements OnInit {
     multiple: false,
     formatsAllowed: ".jpg,.png",
     uploadAPI:  {
-      url:"http://localhost:3001/upload-photo",
+      url: `${environment.url}/upload-photo`,
     },
     replaceTexts: {
       selectFileBtn: 'Выберите файл',
