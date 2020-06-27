@@ -5,7 +5,12 @@ const dbConfig = require("./db.config.js");
 const fileUpload =  require("express-fileupload");
 const path = require("path");
 const uniqueFilename = require("unique-filename");
+const serveStatic = require("serve-static");
 const app = express();
+
+// Обработка статических файлов
+app.use("/", serveStatic(path.join(__dirname, "../dist/project")));
+
 
 // Загрузка файлов
 app.use(fileUpload({
@@ -433,7 +438,7 @@ app.get('/api/all-comments', function (req, res) {
     );
   } catch (error) {
     console.log(error);
-  }
+  } 
 });
 
 
