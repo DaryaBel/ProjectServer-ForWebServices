@@ -209,7 +209,17 @@ app.post("/api/add", (req, res) => {
         console.log(err);
       }
       console.log('Создание прошло успешно');
-      res.json("create");
+      connection.query(`SELECT * FROM products ORDER BY id DESC LIMIT 1`,
+        function (e, r) {
+          if (e) {
+            res.status(500).send('Ошибка сервера при созданной карточки')
+            console.log(e);
+          } else {
+            console.log(r[0].id);
+            res.json(r[0].id);
+          }
+        });
+      // res.json("create");
     });
 })
 
@@ -346,23 +356,6 @@ app.delete("/api/users/:id", (req, res) => {
       }
       console.log('Удаление прошло успешно');
       res.json("delete");
-    });
-})
-
-// Обработка добавления сотрудника
-app.post("/api/users", (req, res) => {
-  if (!req.body) return res.sendStatus(400);
-  console.log('Пришёл POST запрос для добавления сотрудника:');
-  console.log(req.body);
-  connection.query(`INSERT INTO users (login, password, name, role) VALUES (?, ?, ?, ?);`,
-    [req.body.login, req.body.password, req.body.name, req.body.role],
-    function (err) {
-      if (err) {
-        res.status(500).send('Ошибка сервера при добавлении сотрудника')
-        console.log(err);
-      }
-      console.log('Добавление сотрудника прошло успешно');
-      res.json("create");
     });
 })
 
@@ -577,31 +570,6 @@ app.get("/api/statistic/sales", function (req, res) {
         }
         console.log("Результаты получения статистики продаж и выпечки продукции за месяц");
         console.log(results);
-        // let arr;
-        // for (const one in results) {
-        //   // console.log(results[one]);
-        //   let minResults = results;
-        //   minResults.splice(one, 1);
-        //   // console.log(minResults); 
-        //   if (minResults != undefined ) { 
-        //     let index = this.minResults.findIndex((el) => {
-        //        return el.id == results[one].id;
-        //     });
-        //     console.log(minResults[index]);
-        //     console.log(results[index+1]);
-        //   }
-          // let index = this.minResults.findIndex((el) => {
-          //    return el.id == results[one].id;
-          // });
-          // console.log(minResults[index]);
-          // console.log(results[index+1]);
-          // let obj = {
-          //   name: results[one].name,
-          //   add: ,
-          //   subtract: 
-            
-          // }
-        // }
         res.json(results);
       }
     );

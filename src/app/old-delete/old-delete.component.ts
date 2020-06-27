@@ -30,7 +30,7 @@ export class OldDeleteComponent implements OnInit {
               result[one].name,
               result[one].filename,
               result[one].artikul,
-              result[one].number,
+              "0",
               result[one].price,
               result[one].weight,
               result[one].description,

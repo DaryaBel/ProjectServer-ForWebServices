@@ -15,6 +15,7 @@ export class AddRoleComponent implements OnInit {
   isEmpty = true;
   // Логическая переменная, определяющая наличие или отсутсвие сообщения об успешном добавлении товара
   succes = false;
+  existLogin = false;
 
   constructor(private mainService: MainService) {}
 
@@ -48,21 +49,30 @@ export class AddRoleComponent implements OnInit {
       };
       console.log(user);
       try {
-        let result = await this.mainService.post(
+        let ExistOrNot = await this.mainService.post(
           JSON.stringify(user),
-          "/users"
+          "/registration"
         );
-      } catch (err) {
-        console.log(err);
+        if (ExistOrNot != "exist") {
+          console.log(ExistOrNot);
+          this.succes = true;
+          this.form.reset();
+        } else {
+          this.existLogin = true;
+          console.log("Логин уже существует");
+        }
+      } catch (error) {
+        console.log(error);
       }
-      this.form.reset();
+      
       this.loading = false;
-      this.succes = true;
+      
     }
   }
   // Функция, скрывающая сообщения о незаполненности полей и успешном добавлении товара (вызвается при фокусировке на одном из полей формы)
   onSucces() {
     this.succes = false;
     this.isEmpty = true;
+    this.existLogin= false;
   }
 }
