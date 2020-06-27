@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  baseUrl: 'http://bread.std-705.ist.mospolytech.ru/api'
 };

@@ -3006,6 +3006,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -3016,7 +3018,7 @@ let MainService = class MainService {
     }
     //Создает полный адрес запроса
     getUrl(url = "") {
-        return "http://localhost:3001/api" + url;
+        return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url;
     }
     // Отправляет запрос GET на сервер
     get(url) {
@@ -3342,7 +3344,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 
 const environment = {
-    production: false
+    production: false,
+    baseUrl: 'http://localhost:3001/api'
 };
 /*
  * For easier debugging in development mode, you can import the following file

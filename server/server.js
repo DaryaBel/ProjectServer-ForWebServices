@@ -42,9 +42,18 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
-// Создание соединения с базой данных
-const connection = mysql.createPool({
+let connection;
+if (process.env.NODE_ENV === 'production') {
+connection = mysql.createPool({
+  host: dbConfig.PROD.HOST,
+  user: dbConfig.PROD.USER,
+  password: dbConfig.PROD.PASSWORD,
+  database: dbConfig.PROD.DB,
+  charset: 'utf8_general_ci',
+  connectionLimit: 10
+});
+} else { 
+connection = mysql.createPool({
   host: dbConfig.HOST,
   user: dbConfig.USER,
   password: dbConfig.PASSWORD,
@@ -52,6 +61,9 @@ const connection = mysql.createPool({
   charset: 'utf8_general_ci',
   connectionLimit: 10
 });
+}
+// Создание соединения с базой данных
+
 connection.getConnection((err, connect) => {
   if (err) {
     if (err.code === "PROTOCOL_CONNECTION_LOST") {

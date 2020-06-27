@@ -5031,6 +5031,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! @angular/common/http */
     "./node_modules/@angular/common/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../../environments/environment */
+    "./src/environments/environment.ts");
 
     var MainService = /*#__PURE__*/function () {
       function MainService(http) {
@@ -5045,7 +5051,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "getUrl",
         value: function getUrl() {
           var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-          return "http://localhost:3001/api" + url;
+          return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url;
         } // Отправляет запрос GET на сервер
 
       }, {
@@ -5606,7 +5612,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     var environment = {
-      production: false
+      production: false,
+      baseUrl: 'http://localhost:3001/api'
     };
     /*
      * For easier debugging in development mode, you can import the following file
