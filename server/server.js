@@ -8,6 +8,8 @@ const uniqueFilename = require("unique-filename");
 const serveStatic = require("serve-static");
 const app = express();
 
+const port = process.env.PORT || 3001
+
 // Обработка статических файлов
 app.use("/", serveStatic(path.join(__dirname, "../dist/project")));
 
@@ -617,6 +619,6 @@ app.get("/api/photo/:filename", (req, res) => {
 })
 
 // Информирование о запуске сервера и его порте
-app.listen(3001, () => {
-  console.log("Сервер запущен на http://localhost:3001");
+app.listen(port, () => {
+  console.log(`Сервер запущен на http://localhost:${port}`);
 });
