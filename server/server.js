@@ -90,14 +90,6 @@ connection.getConnection((err, connect) => {
 });
 
 
-// app.get("/products", (req, res) => {
-//   res.sendFile("index.html", {
-//     root: __dirname + "/../dist/project/",
-//   });
-//   // res.send("OK");
-// });
-
-
 //Обработка входа
 app.post("/api/login", (req, res) => {
   if (!req.body) return res.sendStatus(400).send("Данные не пришли");

@@ -57,13 +57,15 @@ export class AdminCommentComponent implements OnInit {
   }
 
   async onDelete(id) {
+    console.log(id);
+    
     try {
       let result = await this.mainService.delete(`/comments/${id}`);
     } catch (error) {
       console.log(error);
     }
     let index = this.comments.findIndex((el) => {
-      return el.id == id;
+      return el.idcomment == id;
     });
     this.comments.splice(index, 1);
     if (this.comments.length == 0) {
