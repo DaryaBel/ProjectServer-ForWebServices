@@ -7,12 +7,14 @@ const path = require("path");
 const uniqueFilename = require("unique-filename");
 const serveStatic = require("serve-static");
 const app = express();
-
+const history = require('connect-history-api-fallback');
 const port = process.env.PORT || 3001
 
 // Обработка статических файлов
 app.use("/", serveStatic(path.join(__dirname, "../dist/project")));
 
+// История
+app.use(history());
 
 // Загрузка файлов
 app.use(fileUpload({
