@@ -16,6 +16,13 @@ app.use("/", serveStatic(path.join(__dirname, "../dist/project")));
 // История
 app.use(history());
 
+//
+app.all("/products/*", (req, res) => {
+  res.sendFile("index.html", {
+    root: __dirname + "/../dist/project/",
+  });
+});
+
 // Загрузка файлов
 app.use(fileUpload({
   createParentPath: true
