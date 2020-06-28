@@ -10,18 +10,14 @@ const app = express();
 const history = require('connect-history-api-fallback');
 const port = process.env.PORT || 3001
 
-// Обработка статических файлов
-app.use("/", serveStatic(path.join(__dirname, "../dist/project")));
-
 // История
 app.use(history());
 
 //
-app.all("/products/*", (req, res) => {
-  res.sendFile("index.html", {
-    root: __dirname + "/../dist/project/",
-  });
-});
+
+// Обработка статических файлов
+app.use("/", serveStatic(path.join(__dirname, "../dist/project")));
+
 
 // Загрузка файлов
 app.use(fileUpload({
@@ -92,6 +88,14 @@ connection.getConnection((err, connect) => {
   }
   if (connect) connect.release();
 });
+
+
+// app.get("/products", (req, res) => {
+//   res.sendFile("index.html", {
+//     root: __dirname + "/../dist/project/",
+//   });
+//   // res.send("OK");
+// });
 
 
 //Обработка входа
