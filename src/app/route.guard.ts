@@ -17,7 +17,7 @@ export class RouteGuard implements CanActivate {
       localStorage.getItem("id") != null
     ) {
       this.router.navigate(["/"]);
-      return false;
+      // return false;
     } else if (
       (localStorage.getItem("role") == null ||
       localStorage.getItem("role") == "3") &&
@@ -29,7 +29,7 @@ export class RouteGuard implements CanActivate {
       path == "archive"
            )) {
              this.router.navigate(["/"]);
-             return false;
+             return true;
            } else if (
              (path == "add-role" ||
                path == "list-user" ||
@@ -38,7 +38,7 @@ export class RouteGuard implements CanActivate {
              localStorage.getItem("role") == "2"
            ) {
              this.router.navigate(["/"]);
-             return false;
+            //  return false;
            } else return true;
   }
 }
