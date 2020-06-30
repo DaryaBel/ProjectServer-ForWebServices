@@ -50,21 +50,21 @@ export class AdminComponent implements OnInit {
     let resultSales;
     try {
       resultFavor = await this.mainService.get(`/statistic/favor`);
-      console.log(resultFavor);
+      // console.log(resultFavor);
       for (const one of resultFavor) {
         this.datasetsFavor.push(one.favourcount);
         this.labelsFavor.push(one.name);
       }
       //
       resultComment = await this.mainService.get(`/statistic/comments`);
-      console.log(resultComment);
+      // console.log(resultComment);
       for (const one of resultComment) {
         this.datasetsComment.push(one.commentcount);
         this.labelsComment.push(one.name);
       }
 
       resultSales = await this.mainService.get(`/statistic/sales`);
-      console.log(resultSales);
+      // console.log(resultSales);
       for (const one in resultSales) {
         // console.log(this.idSales);
 
@@ -93,21 +93,21 @@ export class AdminComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
-    console.log(this.idSales);
-    console.log(this.labelsSales);
-    console.log(this.datasetsSalesAdd);
-    console.log(this.datasetsSalesSubtract);
+    // console.log(this.idSales);
+    // console.log(this.labelsSales);
+    // console.log(this.datasetsSalesAdd);
+    // console.log(this.datasetsSalesSubtract);
 
     if (Object.keys(this.labelsFavor).length == 0) {
-      console.log("пуст1");
+      // console.log("пуст1");
       this.notfound1 = true;
     } else this.notfound1 = false;
     if (Object.keys(this.labelsComment).length == 0) {
-      console.log("пуст2");
+      // console.log("пуст2");
       this.notfound2 = true;
     } else this.notfound2 = false;
     if (Object.keys(this.labelsSales).length == 0) {
-      console.log("пуст3");
+      // console.log("пуст3");
       this.notfound3 = true;
     } else this.notfound3 = false;
 

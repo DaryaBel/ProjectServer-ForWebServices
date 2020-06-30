@@ -40,10 +40,10 @@ export class CommentsComponent implements OnInit {
     });
     try {
       let result = await this.mainService.get(`/comments/${this.id}`);
-      console.log(result[0]);
+      // console.log(result[0]);
       if (typeof result[0] !== "undefined") {
         this.notfound = false;
-        console.log(result);
+        // console.log(result);
         for (const one in result) {
           let name = result[one].name;
           if (localStorage.getItem("id") == result[one].iduser) {
@@ -64,7 +64,7 @@ export class CommentsComponent implements OnInit {
             )
           );
         }
-        console.log(this.comments);
+        // console.log(this.comments);
       } else {
         this.notfound = true;
       }
@@ -102,7 +102,7 @@ export class CommentsComponent implements OnInit {
 
   async onAdd() {
     this.success = true;
-    console.log("id ", this.id);
+    // console.log("id ", this.id);
     if (this.form.value.comment == "") {
       this.isEmpty = true;
     } else {
@@ -112,13 +112,13 @@ export class CommentsComponent implements OnInit {
         idproduct: this.id,
         text: this.form.value.comment,
       };
-      console.log(comment);
+      // console.log(comment);
       try {
         let result = await this.mainService.post(
           JSON.stringify(comment),
           "/comments"
         );
-        console.log(result);
+        // console.log(result);
 
         let name = result[0].name;
         if (localStorage.getItem("id") == result[0].iduser) {

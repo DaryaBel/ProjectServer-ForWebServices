@@ -24,7 +24,7 @@ export class OldDeleteComponent implements OnInit {
       let result = await this.mainService.get("/archive");
       if (typeof result[0] !== "undefined") {
         this.notfound = false;
-        console.log(result);
+        // console.log(result);
         for (const one in result) {
           this.products.push(
             new Product(

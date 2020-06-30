@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
 
   openMenu() {
     this.addMenu = !this.addMenu;
-    console.log(this.addMenu);
+    // console.log(this.addMenu);
   }
 
   // Функция, срабатывающая при выходе из аккаунта, очищает LocalStorage и переводит на каталог товаров

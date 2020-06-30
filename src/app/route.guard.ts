@@ -9,8 +9,8 @@ export class RouteGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    console.log(route.url[0].path);
-    console.log(localStorage.getItem("id"));
+    // console.log(route.url[0].path);
+    // console.log(localStorage.getItem("id"));
     let path = route.url[0].path;
     if (
       (path == "registration" || path == "login") &&

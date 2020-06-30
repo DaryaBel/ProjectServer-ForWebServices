@@ -28,12 +28,12 @@ export class ItemComponent implements OnInit {
         try {
           response = await this.mainService.get(`/favour/${localStorage.getItem("id")}`);
           let all = response;
-          console.log(all);
+          // console.log(all);
           let index = all.findIndex((el) => {
             return el.id == this.item.id;
           });
-          console.log("index");
-          console.log(index);
+          // console.log("index");
+          // console.log(index);
           if (index == -1) {
             this.heart = false;
           } else this.heart= true;
@@ -92,9 +92,9 @@ export class ItemComponent implements OnInit {
 
 
   async deleteFavourite() {
-    console.log("Зашли в функцию удаления статьи из избранного");
+    // console.log("Зашли в функцию удаления статьи из избранного");
     try {
-      console.log("Отправили запрос на удаление статьи из избранного");
+      // console.log("Отправили запрос на удаление статьи из избранного");
       let result = await this.mainService
         .delete(
           `/favour/${localStorage.getItem("id")}/${
@@ -108,9 +108,9 @@ export class ItemComponent implements OnInit {
   }
 
   async addFavourite() {
-    console.log("Зашли в функцию добавление статьи в избранное");
+    // console.log("Зашли в функцию добавление статьи в избранное");
     try {
-      console.log("Отправили запрос на добавление статьи в избранное");
+      // console.log("Отправили запрос на добавление статьи в избранное");
       let obj = {
         iduser: localStorage.getItem("id"), 
         idproduct: this.item.id

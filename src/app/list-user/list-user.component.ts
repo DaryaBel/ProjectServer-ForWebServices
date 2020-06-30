@@ -20,7 +20,7 @@ export class ListUserComponent implements OnInit {
     try {
       let result = await this.mainService.get("/users");
       if (typeof result !== "undefined") {
-        console.log(result);
+        // console.log(result);
         for (const one in result) {
           let name = result[one].name;
           if (localStorage.getItem("id") == result[one].id) { 

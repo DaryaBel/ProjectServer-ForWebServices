@@ -21,12 +21,12 @@ export class AdminCommentComponent implements OnInit {
     try {
       let result = await this.mainService.get("/all-comments");
        if (Object.keys(result).length == 0) {
-         console.log("пуст");
+        //  console.log("пуст");
          result = undefined;
        }
       if (typeof result !== "undefined") {
         this.notfound = false;
-        console.log(result);
+        // console.log(result);
         for (const one in result) {
           let time = `${moment(result[one].datetime).format("LL")}`;
           let result1 = await this.mainService.get(
@@ -57,7 +57,7 @@ export class AdminCommentComponent implements OnInit {
   }
 
   async onDelete(id) {
-    console.log(id);
+    // console.log(id);
     
     try {
       let result = await this.mainService.delete(`/comments/${id}`);

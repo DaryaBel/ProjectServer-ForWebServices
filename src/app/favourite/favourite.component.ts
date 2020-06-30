@@ -19,12 +19,12 @@ export class FavouriteComponent implements OnInit {
     try {
       let result = await this.mainService.get(`/favour/${localStorage.getItem("id")}`);
       if (Object.keys(result).length == 0) {
-        console.log("пуст");
+        // console.log("пуст");
         result = undefined;
       }
       if (typeof result !== "undefined") {
         this.notfound = false;
-        console.log(result);
+        // console.log(result);
         for (const one in result) {
           this.products.push(
             new Product(

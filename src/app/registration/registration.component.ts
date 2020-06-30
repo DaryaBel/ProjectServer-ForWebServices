@@ -51,7 +51,7 @@ export class RegistrationComponent implements OnInit {
         name: this.form.value.name,
         role: "3"
       };
-      console.log(infoAboutUser);
+      // console.log(infoAboutUser);
       try {
         let ExistOrNot = await this.api.post(
           JSON.stringify(infoAboutUser),
@@ -59,13 +59,13 @@ export class RegistrationComponent implements OnInit {
         );
         this.form.reset();
         if (ExistOrNot != "exist") {
-          console.log(ExistOrNot);
+          // console.log(ExistOrNot);
           this.user.id = ExistOrNot[0].id;
           this.user.login = ExistOrNot[0].login;
           this.user.password = ExistOrNot[0].password;
           this.user.name = ExistOrNot[0].name;
           this.user.role = ExistOrNot[0].role;
-          console.log(this.user);
+          // console.log(this.user);
           localStorage.setItem("role", this.user.role);
           localStorage.setItem("id", this.user.id);
           localStorage.setItem("name", this.user.name);

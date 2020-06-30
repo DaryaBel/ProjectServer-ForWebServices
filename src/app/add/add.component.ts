@@ -72,7 +72,7 @@ export class AddComponent implements OnInit {
         description: this.form.value.description,
         ingredients: this.form.value.ingredients
       }
-      console.log(product);
+      // console.log(product);
       this.filename = "";
       try {;
         let result = await this.mainService.post(JSON.stringify(product), "/add");
@@ -98,7 +98,7 @@ export class AddComponent implements OnInit {
 
   // Функция, возвращение имени загруженного файла
   fileUpload(event){
-    console.log(JSON.parse(event.response).filename);
+    // console.log(JSON.parse(event.response).filename);
     this.filename = JSON.parse(event.response).filename;
   }
 

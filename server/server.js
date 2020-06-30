@@ -558,19 +558,19 @@ app.get("/api/statistic/favor", function (req, res) {
 });
 
 
-// Обработка статистики комментариев за неделю
+// Обработка статистики комментариев 
 app.get("/api/statistic/comments", function (req, res) {
   try {
     connection.query(
-      "SELECT count(*) AS commentcount, products.name FROM `comment` INNER JOIN `products` ON products.id = comment.idproduct WHERE  year(datetime) = year(now()) and week(datetime, 1) = week(now(), 1) GROUP BY comment.idproduct",
+      "SELECT count(*) AS commentcount, products.name FROM `comment` INNER JOIN `products` ON products.id = comment.idproduct WHERE year(datetime) = year(now()) and week(datetime, 1) = week(now(), 1) GROUP BY comment.idproduct",
       function (error, results) {
         if (error) {
           res
             .status(500)
-            .send("Ошибка сервера при получении статистики комментариев за неделю");
+            .send("Ошибка сервера при получении статистики комментариев ");
           console.log(error);
         }
-        console.log("Результаты получения статистики комментариев за неделю");
+        console.log("Результаты получения статистики комментариев ");
         console.log(results);
         res.json(results);
       }
@@ -584,7 +584,7 @@ app.get("/api/statistic/comments", function (req, res) {
 app.get("/api/statistic/sales", function (req, res) {
   try {
     connection.query(
-       "SELECT products.id, sum(different) AS sum, products.name, operation FROM `historychange` INNER JOIN `products` ON products.id = historychange.idproduct WHERE  year(datetime) = year(now()) and week(datetime, 1) = week(now(), 1) GROUP BY historychange.idproduct, historychange.operation",
+       "SELECT products.id, sum(different) AS sum, products.name, operation FROM `historychange` INNER JOIN `products` ON products.id = historychange.idproduct WHERE  month(datetime) = month(now()) and year(datetime) = year(now()) GROUP BY historychange.idproduct, historychange.operation",
        function (error, results) {
         if (error) {
           res

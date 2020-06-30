@@ -47,19 +47,19 @@ export class AddRoleComponent implements OnInit {
         login: this.form.value.login,
         password: this.form.value.password,
       };
-      console.log(user);
+      // console.log(user);
       try {
         let ExistOrNot = await this.mainService.post(
           JSON.stringify(user),
           "/registration"
         );
         if (ExistOrNot != "exist") {
-          console.log(ExistOrNot);
+          // console.log(ExistOrNot);
           this.succes = true;
           this.form.reset();
         } else {
           this.existLogin = true;
-          console.log("Логин уже существует");
+          // console.log("Логин уже существует");
         }
       } catch (error) {
         console.log(error);

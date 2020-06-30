@@ -46,7 +46,7 @@ export class AuthorizationComponent implements OnInit {
       login: this.form.value.login,
       password: this.form.value.password,
     }
-    console.log(infoAboutUser);
+    // console.log(infoAboutUser);
     try {
       let ExistOrNot = await this.api.post(JSON.stringify(infoAboutUser), "/login");
       this.form.reset();  
@@ -56,7 +56,7 @@ export class AuthorizationComponent implements OnInit {
         this.user.password = ExistOrNot[0].password;
         this.user.name = ExistOrNot[0].name; 
         this.user.role = ExistOrNot[0].role; 
-        console.log(this.user);       
+        // console.log(this.user);       
         this.notExistLoginOrPassword = true;
         localStorage.setItem("role", this.user.role);
         localStorage.setItem("id", this.user.id);
@@ -65,7 +65,7 @@ export class AuthorizationComponent implements OnInit {
   
       } else {
         this.notExistLoginOrPassword = false;
-        console.log("Неверный логин или пароль");
+        // console.log("Неверный логин или пароль");
       } 
     } catch (error) {
       console.log(error);

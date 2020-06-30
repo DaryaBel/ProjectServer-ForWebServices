@@ -68,7 +68,7 @@ export class ViewComponent implements OnInit {
       this.hasOrNot = `${this.product.number} в наличии`;
     }
     this.old = this.product.number;
-    console.log(this.product);
+    // console.log(this.product);
     if (localStorage.getItem("id") !== null) {
       let response;
       try {
@@ -76,12 +76,12 @@ export class ViewComponent implements OnInit {
           `/favour/${localStorage.getItem("id")}`
         );
         let all = response;
-        console.log(all);
+        // console.log(all);
         let index = all.findIndex((el) => {
           return el.id == this.product.id;
         });
-        console.log("index");
-        console.log(index);
+        // console.log("index");
+        // console.log(index);
         if (index == -1) {
           this.heart = false;
         } else this.heart = true;
@@ -159,11 +159,11 @@ export class ViewComponent implements OnInit {
         this.product.ingredients
       );
       this.new = this.form.value.number;
-      console.log("new ", this.new);
-      console.log("old ", this.old);
+      // console.log("new ", this.new);
+      // console.log("old ", this.old);
       try {
         if (this.new > this.old) {
-          console.log("увеличение товаров с ", this.old, " до ", this.new);
+          // console.log("увеличение товаров с ", this.old, " до ", this.new);
           changeNum = "+";
           different = this.new - this.old;
           let obj = {
@@ -177,7 +177,7 @@ export class ViewComponent implements OnInit {
           );
         }
         if (this.new < this.old) {
-          console.log("продажа товаров в числе  ", this.old - this.new);
+          // console.log("продажа товаров в числе  ", this.old - this.new);
           changeNum = "-";
           different = this.old - this.new;
           let obj = {
@@ -215,30 +215,30 @@ export class ViewComponent implements OnInit {
   }
 
   async deleteFavourite() {
-    console.log("Зашли в функцию удаления статьи из избранного");
+    // console.log("Зашли в функцию удаления статьи из избранного");
     try {
-      console.log("Отправили запрос на удаление статьи из избранного");
+      // console.log("Отправили запрос на удаление статьи из избранного");
       let result = await this.mainService.delete(
         `/favour/${localStorage.getItem("id")}/${this.product.id}`
       );
       this.heart = false;
-      console.log(this.heart);
+      // console.log(this.heart);
     } catch (error) {
       console.log(error);
     }
   }
 
   async addFavourite() {
-    console.log("Зашли в функцию добавление статьи в избранное");
+    // console.log("Зашли в функцию добавление статьи в избранное");
     try {
-      console.log("Отправили запрос на добавление статьи в избранное");
+      // console.log("Отправили запрос на добавление статьи в избранное");
       let obj = {
         iduser: localStorage.getItem("id"),
         idproduct: this.product.id,
       };
       let result = await this.mainService.post(obj, `/favour`);
       this.heart = true;
-      console.log(this.heart);
+      // console.log(this.heart);
     } catch (error) {
       console.log(error);
     }

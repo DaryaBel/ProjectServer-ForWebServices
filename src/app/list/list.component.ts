@@ -30,7 +30,7 @@ export class ListComponent implements OnInit {
 
       if (typeof result[0] !== "undefined") {
         this.notfound = false;
-        console.log(result);
+        // console.log(result);
         for (const one in result) {
           this.products.push(
             new Product(
@@ -61,7 +61,7 @@ export class ListComponent implements OnInit {
      if (
        Object.keys(this.search(this.products, this.searchString)).length == 0
      ) {
-       console.log("пуст");
+      //  console.log("пуст");
        this.notfound = true;
      } else this.notfound = false;
     this.hide1 = true;
